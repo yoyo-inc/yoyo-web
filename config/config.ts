@@ -1,4 +1,5 @@
 import { defineConfig } from '@umijs/max';
+import proxy from './proxy';
 import routes from './routes';
 
 export default defineConfig({
@@ -9,4 +10,5 @@ export default defineConfig({
   layout: {},
   routes,
   npmClient: 'pnpm',
+  proxy,
 });
