@@ -4,6 +4,7 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
+import { history, request } from '@umijs/max';
 
 import logo from '@/assets/logo.png';
 import styles from './index.less';
@@ -13,10 +14,17 @@ export default function Login() {
     <div className={styles.login}>
       <LoginFormPage
         title={'API网关'}
-        subTitle={'API网关'}
+        subTitle={'API网关专业提供者'}
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo={logo}
-        onFinish={() => {}}
+        onFinish={(data) => {
+          return request('/login', {
+            method: 'POST',
+            data,
+          }).then(() => {
+            history.push('/');
+          });
+        }}
       >
         <ProFormText
           name={'username'}
