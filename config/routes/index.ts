@@ -20,8 +20,15 @@ export default [
   },
   {
     path: '/setting',
-    component: 'setting',
     name: '系统设置',
     icon: 'setting',
+    routes: [
+      {
+        path: '/setting/user',
+        component: 'setting/user',
+        name: '用户管理',
+        icon: 'user',
+      },
+    ],
   },
 ];
