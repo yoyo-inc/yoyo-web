@@ -21,8 +21,10 @@ export default function Login() {
           return request('/login', {
             method: 'POST',
             data,
-          }).then(() => {
-            history.push('/');
+          }).then((result) => {
+            if (result?.success) {
+              history.push('/');
+            }
           });
         }}
       >
