@@ -1,6 +1,9 @@
 import { history, RequestConfig } from '@umijs/max';
 import { message } from 'antd';
 
+import logo from '@/assets/logo.png';
+import RightContent from '@/components/right-content';
+
 export const request: RequestConfig = {
   baseURL: '/api',
   timeout: 60 * 1000,
@@ -29,13 +32,15 @@ export async function getInitialState(): Promise<any> {
   return { name: 'yoyo-web' };
 }
 
-export const layout = () => {
+export const layout = ({
+  initialState,
+}: {
+  initialState: { currentUser: API.User };
+}) => {
+  console.log(initialState);
   return {
-    logo: 'https://img.alicdn.com/tfs/TB1YHEpwUT1gK0jSZFhXXaAtVXa-28-27.svg',
+    logo,
     title: 'yoyo-web',
-    menu: {
-      locale: false,
-    },
-    navTheme: 'dark',
+    rightContentRender: () => <RightContent />,
   };
 };
