@@ -14,6 +14,10 @@ declare namespace API {
     phone?: string;
     /** 账户名 */
     username?: string;
+    /** 页数 */
+    page?: number;
+    /** 每页大小 */
+    pageSize?: number;
   };
 
   type Organization = {
