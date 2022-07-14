@@ -9,17 +9,7 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {},
-  layout: {
-    layout: 'mix',
-    menu: {
-      locale: false,
-    },
-    navTheme: 'light',
-    contentWidth: 'Fluid',
-    fixedHeader: false,
-    fixSiderbar: true,
-    colorWeak: false,
-  },
+  layout: {},
   routes,
   npmClient: 'pnpm',
   proxy,
