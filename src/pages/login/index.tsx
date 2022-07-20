@@ -13,8 +13,8 @@ export default function Login() {
   return (
     <div className={styles.login}>
       <LoginFormPage
-        title={'API网关'}
-        subTitle={'API网关专业提供者'}
+        title={'yoyo-web'}
+        subTitle={'瑞士军刀'}
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo={logo}
         onFinish={(data) => {
