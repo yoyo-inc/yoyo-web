@@ -62,3 +62,11 @@ export async function deleteUserUserID(
     ...(options || {}),
   });
 }
+
+/** 查询当前用户信息 GET /user/current */
+export async function getUserCurrent(options?: { [key: string]: any }) {
+  return request<API.Response & { data?: API.User }>('/user/current', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
