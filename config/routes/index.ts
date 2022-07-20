@@ -7,6 +7,7 @@ export default [
     hideInBreadcrumb: true,
     menuRender: false,
     menuHeaderRender: false,
+    headerRender: false,
   },
   {
     path: '/',
