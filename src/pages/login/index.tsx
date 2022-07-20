@@ -22,7 +22,9 @@ export default function Login() {
             method: 'POST',
             data,
           }).then((result) => {
+            console.log(result);
             if (result?.success) {
+              localStorage.setItem('token', result.data.token);
               history.push('/');
             }
           });
