@@ -8,7 +8,9 @@ export default defineConfig({
   antd: {},
   model: {},
   initialState: {},
-  request: {},
+  request: {
+    dataField: 'data',
+  },
   layout: {},
   routes,
   npmClient: 'pnpm',
