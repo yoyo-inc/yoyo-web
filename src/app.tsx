@@ -4,6 +4,7 @@ import { history } from '@umijs/max';
 import logo from '@/assets/logo.png';
 import RightContent from '@/components/right-content';
 import api from '@/services/api';
+import { message } from 'antd';
 
 const loginPath = '/login';
 
@@ -32,6 +33,20 @@ export const request: RequestConfig = {
       },
     ],
   ],
+  errorConfig: {
+    errorThrower(data: API.Response) {
+      const error = new Error(data.message);
+      // @ts-ignore
+      error.info = data;
+      throw error;
+    },
+    errorHandler(error) {
+      // @ts-ignore
+      if (error.info.code !== '401') {
+        message.error(error.message);
+      }
+    },
+  },
 };
 
 export type IInitialState = {
