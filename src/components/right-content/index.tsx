@@ -32,9 +32,9 @@ export default function RightContent() {
         <>
           <Avatar
             className={styles.avatar}
-            src={initialState.currentUser.avatar}
+            src={initialState.currentUser?.avatar}
           ></Avatar>
-          <span>{initialState.currentUser.username}</span>
+          <span>{initialState.currentUser?.username}</span>
         </>
       </Dropdown>
     </div>

@@ -43,8 +43,10 @@ export type IInitialState = {
 export async function getInitialState(): Promise<any> {
   const initialState = {} as IInitialState;
   if (localStorage.getItem('token')) {
-    const result = await api.user.getUserCurrent({});
-    initialState['currentUser'] = result.data;
+    try {
+      const result = await api.user.getUserCurrent({});
+      initialState['currentUser'] = result.data;
+    } catch (e) {}
   }
   return initialState;
 }
@@ -52,7 +54,7 @@ export async function getInitialState(): Promise<any> {
 export const layout = ({
   initialState,
 }: {
-  initialState: { currentUser: API.User };
+  initialState: { currentUser?: API.User };
 }) => {
   return {
     logo,
