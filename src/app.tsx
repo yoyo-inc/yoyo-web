@@ -1,4 +1,5 @@
-import { history, RequestConfig } from '@umijs/max';
+import type { RequestConfig } from '@umijs/max';
+import { history } from '@umijs/max';
 
 import logo from '@/assets/logo.png';
 import RightContent from '@/components/right-content';
@@ -10,13 +11,12 @@ export const request: RequestConfig = {
   baseURL: '/api',
   timeout: 60 * 1000,
   requestInterceptors: [
-    (request) => {
+    (req) => {
       const token = localStorage.getItem('token');
       if (token) {
-        request.headers['Authorization'] =
-          'Bearer ' + localStorage.getItem('token');
+        req.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
       }
-      return request;
+      return req;
     },
   ],
   responseInterceptors: [
@@ -45,17 +45,13 @@ export async function getInitialState(): Promise<any> {
   if (localStorage.getItem('token')) {
     try {
       const result = await api.user.getUserCurrent({});
-      initialState['currentUser'] = result.data;
+      initialState.currentUser = result.data;
     } catch (e) {}
   }
   return initialState;
 }
 
-export const layout = ({
-  initialState,
-}: {
-  initialState: { currentUser?: API.User };
-}) => {
+export const layout = ({ initialState }: { initialState: { currentUser?: API.User } }) => {
   return {
     logo,
     title: 'yoyo-web',
@@ -70,10 +66,7 @@ export const layout = ({
     colorWeak: false,
     rightContentRender: () => <RightContent />,
     onPageChange: () => {
-      if (
-        history.location.pathname !== loginPath &&
-        !initialState?.currentUser
-      ) {
+      if (history.location.pathname !== loginPath && !initialState?.currentUser) {
         history.push(loginPath);
       }
     },
