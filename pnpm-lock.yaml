@@ -5,6 +5,7 @@ specifiers:
   '@ant-design/pro-components': ^1.1.3
   '@types/react': ^18.0.0
   '@types/react-dom': ^18.0.0
+  '@umijs/fabric': ^3.0.0
   '@umijs/max': ^4.0.7
   '@umijs/openapi': ^1.6.0
   antd: ^4.20.7
@@ -27,6 +28,7 @@ dependencies:
 devDependencies:
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
+  '@umijs/fabric': 3.0.0
   '@umijs/openapi': 1.6.0
   husky: 8.0.1
   lint-staged: 13.0.3
@@ -3298,6 +3300,47 @@ packages:
       fast-glob: 3.2.11
       os-locale: 5.0.0
       prettier: 2.7.1
+      prettier-plugin-packagejson: 2.2.18_prettier@2.7.1
+      prettier-plugin-two-style-order: 1.0.1_prettier@2.7.1
+      stylelint: 13.13.1
+      stylelint-config-css-modules: 2.3.0_stylelint@13.13.1
+      stylelint-config-prettier: 8.0.2_stylelint@13.13.1
+      stylelint-config-standard: 20.0.0_stylelint@13.13.1
+      stylelint-declaration-block-no-ignored-properties: 2.5.0_stylelint@13.13.1
+      typescript: 4.7.4
+    transitivePeerDependencies:
+      - postcss-jsx
+      - postcss-markdown
+      - supports-color
+    dev: true
+
+  /@umijs/fabric/3.0.0:
+    resolution: {integrity: sha512-1mkcltWbSfq0fioR4Bw8mabe1Vjo85LBE84eQM4E5uYXk2qW3zUMrZcp0z8a6RQQDiYitQl3ch8kqaDPStHODw==}
+    hasBin: true
+    dependencies:
+      '@babel/core': 7.18.6
+      '@babel/eslint-parser': 7.17.0_e47xv5ui6xrfmjzs5tdc45kbly
+      '@babel/plugin-proposal-class-properties': 7.18.6_@babel+core@7.18.6
+      '@babel/plugin-proposal-decorators': 7.18.6_@babel+core@7.18.6
+      '@babel/preset-env': 7.18.6_@babel+core@7.18.6
+      '@babel/preset-react': 7.18.6_@babel+core@7.18.6
+      '@babel/preset-typescript': 7.18.6_@babel+core@7.18.6
+      '@typescript-eslint/eslint-plugin': 5.27.1_3mdodnw57yfbiuxswjtidyue6y
+      '@typescript-eslint/parser': 5.27.1_hxadhbs2xogijvk7vq4t2azzbu
+      chalk: 4.1.2
+      eslint: 7.32.0
+      eslint-config-prettier: 8.5.0_eslint@7.32.0
+      eslint-formatter-pretty: 4.1.0
+      eslint-plugin-babel: 5.3.1_eslint@7.32.0
+      eslint-plugin-jest: 24.7.0_gbgg6pia3hihxywlumze3uiwem
+      eslint-plugin-promise: 6.0.0_eslint@7.32.0
+      eslint-plugin-react: 7.29.4_eslint@7.32.0
+      eslint-plugin-react-hooks: 4.5.0_eslint@7.32.0
+      eslint-plugin-unicorn: 20.1.0_eslint@7.32.0
+      fast-glob: 3.2.11
+      os-locale: 5.0.0
+      prettier: 2.7.1
+      prettier-plugin-organize-imports: 3.0.0_gd3y7r3s3evy6b2vthd7dmacga
       prettier-plugin-packagejson: 2.2.18_prettier@2.7.1
       prettier-plugin-two-style-order: 1.0.1_prettier@2.7.1
       stylelint: 13.13.1
@@ -9001,6 +9044,16 @@ packages:
     dependencies:
       prettier: 2.7.1
       typescript: 4.7.4
+
+  /prettier-plugin-organize-imports/3.0.0_gd3y7r3s3evy6b2vthd7dmacga:
+    resolution: {integrity: sha512-juSCJs5TMOqGGPaN/A/1xzWFzRPH2LG1LPLCr64dzKaVnPafJdtgDNmDVlU+8A4LbQzVJg0DTvgA8swBuIUhlg==}
+    peerDependencies:
+      prettier: '>=2.0'
+      typescript: '>=2.9'
+    dependencies:
+      prettier: 2.7.1
+      typescript: 4.7.4
+    dev: true
 
   /prettier-plugin-packagejson/2.2.18_prettier@2.7.1:
     resolution: {integrity: sha512-iBjQ3IY6IayFrQHhXvg+YvKprPUUiIJ04Vr9+EbeQPfwGajznArIqrN33c5bi4JcIvmLHGROIMOm9aYakJj/CA==}
