@@ -1,9 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import {
-  LoginFormPage,
-  ProFormCheckbox,
-  ProFormText,
-} from '@ant-design/pro-components';
+import { LoginFormPage, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
 import { history, request } from '@umijs/max';
 
 import logo from '@/assets/logo.png';
@@ -22,9 +18,8 @@ export default function Login() {
             method: 'POST',
             data,
           }).then((result) => {
-            console.log(result);
             if (result?.success) {
-              localStorage.setItem('token', result.data.token);
+              localStorage.setItem('token', result.token);
               history.push('/');
             }
           });
@@ -43,7 +38,7 @@ export default function Login() {
               message: '请输入用户名!',
             },
           ]}
-        ></ProFormText>
+        />
         <ProFormText.Password
           name={'password'}
           fieldProps={{
@@ -56,7 +51,7 @@ export default function Login() {
               message: '请输入密码！',
             },
           ]}
-        ></ProFormText.Password>
+        />
         <div className={styles.footer}>
           <ProFormCheckbox noStyle name={'autoLogin'}>
             自动登录
