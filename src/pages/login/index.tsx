@@ -18,10 +18,8 @@ export default function Login() {
             method: 'POST',
             data,
           }).then((result) => {
-            if (result?.success) {
-              localStorage.setItem('token', result.token);
-              history.push('/');
-            }
+            localStorage.setItem('token', result.data.token);
+            history.push('/');
           });
         }}
       >
