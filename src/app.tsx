@@ -1,3 +1,4 @@
+import React from 'react';
 import type { RequestConfig } from '@umijs/max';
 import { history } from '@umijs/max';
 
