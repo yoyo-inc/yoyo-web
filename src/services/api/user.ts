@@ -8,9 +8,7 @@ export async function getUser(
   params: API.getUserParams,
   options?: { [key: string]: any },
 ) {
-  return request<
-    (API.Response & { data?: API.PaginatedData & { list?: API.User[] } })[]
-  >('/user', {
+  return request<API.Response & { data?: API.PaginatedData & { list?: API.User[] } }>('/user', {
     method: 'GET',
     params: {
       ...params,
@@ -20,10 +18,7 @@ export async function getUser(
 }
 
 /** 更新用户 PUT /user */
-export async function putUser(
-  body: API.User,
-  options?: { [key: string]: any },
-) {
+export async function putUser(body: API.User, options?: { [key: string]: any }) {
   return request<API.Response & { data?: boolean }>('/user', {
     method: 'PUT',
     headers: {
@@ -35,10 +30,7 @@ export async function putUser(
 }
 
 /** 创建用户 POST /user */
-export async function postUser(
-  body: API.User,
-  options?: { [key: string]: any },
-) {
+export async function postUser(body: API.User, options?: { [key: string]: any }) {
   return request<API.Response & { data?: API.User }>('/user', {
     method: 'POST',
     headers: {
