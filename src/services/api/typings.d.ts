@@ -15,7 +15,7 @@ declare namespace API {
     /** 账户名 */
     username?: string;
     /** 页数 */
-    page?: number;
+    current?: number;
     /** 每页大小 */
     pageSize?: number;
   };
