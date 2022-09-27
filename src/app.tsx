@@ -6,6 +6,7 @@ import logo from '@/assets/logo.png';
 import RightContent from '@/components/right-content';
 import api from '@/services/api';
 import { message } from 'antd';
+import { ProPageHeader } from '@ant-design/pro-components';
 
 const loginPath = '/login';
 
@@ -13,7 +14,7 @@ export const request: RequestConfig = {
   baseURL: '/api',
   timeout: 60 * 1000,
   requestInterceptors: [
-    (req) => {
+    (req: any) => {
       const token = localStorage.getItem('token');
       if (token) {
         req.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
@@ -75,7 +76,14 @@ export const layout = ({ initialState }: { initialState: { currentUser?: API.Use
     menu: {
       locale: false,
     },
-    navTheme: 'dark',
+    token: {
+      header: {
+        colorBgHeader: '#FFFFFF',
+      },
+      sider: {
+        colorMenuBackground: '#FFFFFF',
+      },
+    },
     contentWidth: 'Fluid',
     fixedHeader: false,
     fixSiderbar: true,
@@ -86,12 +94,14 @@ export const layout = ({ initialState }: { initialState: { currentUser?: API.Use
         history.push(loginPath);
       }
     },
-    breadcrumbRender: (routes: any) => [
-      {
-        path: '/',
-        breadcrumbName: '主页',
-      },
-      ...(routes || []),
-    ],
+    childrenRender: (dom: any) => {
+      return (
+        <>
+          <ProPageHeader title={false} />
+          {dom}
+        </>
+      );
+    },
+    ErrorBoundary: false,
   };
 };
