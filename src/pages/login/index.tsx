@@ -1,11 +1,14 @@
+import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
 import { history, request } from '@umijs/max';
+import { useModel } from '@umijs/max';
 
 import logo from '@/assets/logo.png';
 import styles from './index.less';
 
 export default function Login() {
+  const { refresh } = useModel('@@initialState');
   return (
     <div className={styles.login}>
       <LoginFormPage
@@ -13,13 +16,15 @@ export default function Login() {
         subTitle={'瑞士军刀'}
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo={logo}
-        onFinish={(data) => {
+        onFinish={(data: any) => {
           return request('/login', {
             method: 'POST',
             data,
           }).then((result) => {
             localStorage.setItem('token', result.data.token);
-            history.push('/');
+            refresh().then(() => {
+              history.push('/');
+            });
           });
         }}
       >
