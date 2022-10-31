@@ -1,15 +1,43 @@
 declare namespace API {
+  type AuditLog = {
+    /** 创建时间 */
+    createTime?: string;
+    detail?: string;
+    /** 主键 */
+    id?: string;
+    ip?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    module?: string;
+    operation?: string;
+    status?: number;
+    user?: User;
+    user_id?: string;
+  };
+
+  type deleteRoleRoleIDParams = {
+    /** 参数 */
+    roleID: string;
+  };
+
   type deleteUserUserIDParams = {
     /** 用户ID */
     userID: string;
   };
 
-  type getRoleParams = {
+  type getAuditLogParams = {
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
+  };
+
+  type getRolesParams = {
     /** 角色名 */
     name?: string;
   };
 
-  type getUserParams = {
+  type getUsersParams = {
     /** 手机号 */
     phone?: string;
     /** 账户名 */
@@ -50,6 +78,20 @@ declare namespace API {
     parentID?: string;
   };
 
+  type PermissionVO = {
+    children?: PermissionVO[];
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    /** 权限名称 */
+    name?: string;
+    /** 父级权限 */
+    parentID?: string;
+  };
+
   type Response = {
     code?: string;
     data?: any;
@@ -66,6 +108,18 @@ declare namespace API {
     modifyTime?: string;
     name: string;
     permissions?: Permission[];
+    remark?: string;
+  };
+
+  type RoleVO = {
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    name: string;
+    permissions?: string[];
     remark?: string;
   };
 
@@ -93,6 +147,35 @@ declare namespace API {
     phone?: string;
     /** 角色 */
     roles?: Role[];
+    /** 性别 0: 男 1: 女 */
+    sex?: number;
+    /** 账户名 */
+    username: string;
+  };
+
+  type UserVO = {
+    /** 年龄 */
+    age?: number;
+    /** 头像 */
+    avatar?: string;
+    /** 创建时间 */
+    createTime?: string;
+    /** 邮箱 */
+    email?: string;
+    /** 主键 */
+    id?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    /** 昵称 */
+    nickname?: string;
+    organization?: Organization;
+    /** 组织ID */
+    organizationID?: string;
+    /** 密码 */
+    password?: string;
+    /** 手机号 */
+    phone?: string;
+    roles?: string[];
     /** 性别 0: 男 1: 女 */
     sex?: number;
     /** 账户名 */

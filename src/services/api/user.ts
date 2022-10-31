@@ -2,23 +2,8 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 
-/** 查询用户列表 GET /user */
-export async function getUser(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getUserParams,
-  options?: { [key: string]: any },
-) {
-  return request<API.Response & { data?: API.PaginatedData & { list?: API.User[] } }>('/user', {
-    method: 'GET',
-    params: {
-      ...params,
-    },
-    ...(options || {}),
-  });
-}
-
 /** 更新用户 PUT /user */
-export async function putUser(body: API.User, options?: { [key: string]: any }) {
+export async function putUser(body: API.UserVO, options?: { [key: string]: any }) {
   return request<API.Response & { data?: boolean }>('/user', {
     method: 'PUT',
     headers: {
@@ -30,7 +15,7 @@ export async function putUser(body: API.User, options?: { [key: string]: any }) 
 }
 
 /** 创建用户 POST /user */
-export async function postUser(body: API.User, options?: { [key: string]: any }) {
+export async function postUser(body: API.UserVO, options?: { [key: string]: any }) {
   return request<API.Response & { data?: API.User }>('/user', {
     method: 'POST',
     headers: {
@@ -59,6 +44,21 @@ export async function deleteUserUserID(
 export async function getUserCurrent(options?: { [key: string]: any }) {
   return request<API.Response & { data?: API.User }>('/user/current', {
     method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** 查询用户列表 GET /users */
+export async function getUsers(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getUsersParams,
+  options?: { [key: string]: any },
+) {
+  return request<API.Response & { data?: API.PaginatedData & { list?: API.User[] } }>('/users', {
+    method: 'GET',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }
