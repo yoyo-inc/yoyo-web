@@ -18,12 +18,15 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@ant-design/pro-components": "2.3.12",
-    "@umijs/max": "4.0.22",
-    "antd": "4.23.2",
+    "@ant-design/pro-components": "2.3.25",
+    "@umijs/max": "4.0.26",
+    "ahooks": "^3.7.1",
+    "antd": "4.23.5",
+    "lodash": "^4.17.21",
     "reconnecting-websocket": "^4.4.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@umijs/fabric": "^3.0.0",
