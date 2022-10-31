@@ -48,7 +48,7 @@ interface FormTableProps<T> extends CommonFormTableProps {
 }
 
 export default function FormTable<T extends Record<string, any>>(props: FormTableProps<T>) {
-  let {
+  const {
     columns = [],
     rowKey = 'id',
     moduleName = '',
@@ -121,10 +121,7 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
     return newColumns;
   }, columns);
 
-  const handleFinish = async <T extends Record<string, any>>(
-    isAdd: boolean,
-    values: T,
-  ): Promise<boolean | void> => {
+  const handleFinish = async (isAdd: boolean, values: any): Promise<boolean | void> => {
     if (props.onFinish) {
       return props.onFinish(isAdd, values).then(() => {
         tableRef.current?.reload();
