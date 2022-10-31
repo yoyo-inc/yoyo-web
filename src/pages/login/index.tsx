@@ -16,7 +16,7 @@ export default function Login() {
         subTitle={'瑞士军刀'}
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo={logo}
-        onFinish={(data: any) => {
+        onFinish={async (data: any) => {
           return request('/login', {
             method: 'POST',
             data,
