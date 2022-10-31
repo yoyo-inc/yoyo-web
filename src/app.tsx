@@ -1,6 +1,7 @@
 import React from 'react';
 import type { RequestConfig } from '@umijs/max';
 import { history } from '@umijs/max';
+import { QuestionCircleFilled } from '@ant-design/icons';
 
 import logo from '@/assets/logo.png';
 import RightContent from '@/components/right-content';
@@ -71,17 +72,33 @@ export async function getInitialState(): Promise<any> {
 export const layout = ({ initialState }: { initialState: { currentUser?: API.User } }) => {
   return {
     logo,
-    title: 'yoyo-web',
+    title: 'YoYo-Web',
     layout: 'mix',
     menu: {
       locale: false,
+      // type: 'group',
     },
     token: {
       header: {
-        colorBgHeader: '#FFFFFF',
+        colorBgHeader: '#292f33',
+        colorHeaderTitle: '#fff',
+        colorTextMenu: '#dfdfdf',
+        colorTextMenuSecondary: '#dfdfdf',
+        colorTextMenuSelected: '#fff',
+        colorBgMenuItemSelected: '#22272b',
+        colorTextMenuActive: 'rgba(255,255,255,0.85)',
+        colorTextRightActionsItem: '#dfdfdf',
       },
+      colorTextAppListIconHover: '#fff',
+      colorTextAppListIcon: '#dfdfdf',
       sider: {
-        colorMenuBackground: '#FFFFFF',
+        colorMenuBackground: '#fff',
+        colorMenuItemDivider: '#dfdfdf',
+        colorBgMenuItemHover: '#f6f6f6',
+        colorTextMenu: '#595959',
+        colorTextMenuSelected: '#242424',
+        colorTextMenuActive: '#242424',
+        colorBgMenuItemCollapsedHover: '#242424',
       },
     },
     contentWidth: 'Fluid',
@@ -89,6 +106,9 @@ export const layout = ({ initialState }: { initialState: { currentUser?: API.Use
     fixSiderbar: true,
     colorWeak: false,
     rightContentRender: () => <RightContent />,
+    actionsRender: () => {
+      return [<QuestionCircleFilled key="question" />];
+    },
     onPageChange: () => {
       if (history.location.pathname !== loginPath && !initialState?.currentUser) {
         history.push(loginPath);
