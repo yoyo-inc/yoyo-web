@@ -3,6 +3,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { LoginFormPage, ProFormCheckbox, ProFormText } from '@ant-design/pro-components';
 import { history, request } from '@umijs/max';
 import { useModel } from '@umijs/max';
+import { flushSync } from 'react-dom';
 
 import logo from '@/assets/logo.png';
 import styles from './index.less';
@@ -20,9 +21,10 @@ export default function Login() {
           return request('/login', {
             method: 'POST',
             data,
-          }).then((result) => {
+          }).then(async (result) => {
             localStorage.setItem('token', result.data.token);
-            refresh().then(() => {
+            flushSync(async () => {
+              await refresh();
               history.push('/');
             });
           });
