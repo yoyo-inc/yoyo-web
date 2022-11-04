@@ -8,6 +8,7 @@ import RightContent from '@/components/right-content';
 import api from '@/services/api';
 import { message } from 'antd';
 import { ProPageHeader } from '@ant-design/pro-components';
+import { useModel } from '@umijs/max';
 
 const loginPath = '/login';
 
@@ -58,21 +59,19 @@ export type IInitialState = {
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
 // 更多信息见文档：https://next.umijs.org/docs/api/runtime-config#getinitialstate
-export async function getInitialState(): Promise<any> {
+export async function getInitialState(): Promise<IInitialState> {
   const initialState = {} as IInitialState;
-  if (localStorage.getItem('token')) {
-    try {
-      const result = await api.user.getUserCurrent({});
-      initialState.currentUser = result.data;
-    } catch (e) {}
-  }
+  try {
+    const result = await api.user.getUserCurrent({});
+    initialState.currentUser = result.data;
+  } catch (e) {}
   return initialState;
 }
 
 export const layout = ({ initialState }: { initialState: { currentUser?: API.User } }) => {
   return {
     logo,
-    title: 'YoYo-Web',
+    title: 'Yoyo-Web',
     layout: 'mix',
     menu: {
       locale: false,
@@ -111,6 +110,7 @@ export const layout = ({ initialState }: { initialState: { currentUser?: API.Use
     },
     onPageChange: () => {
       if (history.location.pathname !== loginPath && !initialState?.currentUser) {
+        console.log(111);
         history.push(loginPath);
       }
     },
