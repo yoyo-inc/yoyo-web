@@ -7,9 +7,10 @@ import { flushSync } from 'react-dom';
 
 import logo from '@/assets/logo.png';
 import styles from './index.less';
+import api from '@/services/api';
 
 export default function Login() {
-  const { refresh } = useModel('@@initialState');
+  const { setInitialState } = useModel('@@initialState');
   return (
     <div className={styles.login}>
       <LoginFormPage
@@ -21,12 +22,16 @@ export default function Login() {
           return request('/login', {
             method: 'POST',
             data,
-          }).then(async (result) => {
-            localStorage.setItem('token', result.data.token);
-            flushSync(async () => {
-              await refresh();
-              history.push('/');
+          }).then(async (res) => {
+            localStorage.setItem('token', res.data.token);
+            const currentUser = await api.user.getUserCurrent({});
+            flushSync(() => {
+              setInitialState((initialState) => ({
+                ...initialState,
+                currentUser: currentUser.data,
+              }));
             });
+            history.push('/');
           });
         }}
       >
