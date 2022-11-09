@@ -18,17 +18,26 @@ export default [
     component: 'dashboard',
     name: '概览',
     icon: 'dashboard',
+    access: 'dashboard',
   },
   {
     path: '/setting',
     name: '系统设置',
     icon: 'setting',
+    access: 'setting',
     routes: [
+      {
+        path: '/setting/role',
+        component: 'setting/role',
+        name: '角色管理',
+        access: 'role',
+      },
       {
         path: '/setting/user',
         component: 'setting/user',
         name: '用户管理',
         icon: 'user',
+        access: 'user',
       },
     ],
   },
