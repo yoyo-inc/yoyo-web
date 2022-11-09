@@ -1,4 +1,5 @@
 import React from 'react';
+import { message } from 'antd';
 import type { RequestConfig } from '@umijs/max';
 import { history } from '@umijs/max';
 import { QuestionCircleFilled } from '@ant-design/icons';
@@ -6,9 +7,7 @@ import { QuestionCircleFilled } from '@ant-design/icons';
 import logo from '@/assets/logo.png';
 import RightContent from '@/components/right-content';
 import api from '@/services/api';
-import { message } from 'antd';
 import { ProPageHeader } from '@ant-design/pro-components';
-import { useModel } from '@umijs/max';
 
 const loginPath = '/login';
 
@@ -27,10 +26,7 @@ export const request: RequestConfig = {
   responseInterceptors: [
     [
       (response) => {
-        if (200 <= response.status && response.status < 300) {
-          return response;
-        } else if (response.status === 401) {
-          localStorage.removeItem('token');
+        if (response.status === 401) {
           history.push('/login');
         }
         return response;
@@ -39,15 +35,19 @@ export const request: RequestConfig = {
   ],
   errorConfig: {
     errorThrower(data: API.Response) {
-      const error = new Error(data.message);
-      // @ts-ignore
-      error.info = data;
-      throw error;
+      if (!data.success) {
+        const error = new Error(data.message);
+        // @ts-ignore
+        error.info = data;
+        throw error;
+      }
     },
     errorHandler(error) {
       // @ts-ignore
-      if (error.info.code !== '401') {
+      if (error.info) {
         message.error(error.message);
+      } else {
+        message.error('服务异常');
       }
     },
   },
