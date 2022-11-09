@@ -27,6 +27,13 @@ export default function User() {
         }
         return {};
       },
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+          },
+        ],
+      },
     },
     {
       dataIndex: 'nickname',
@@ -39,6 +46,21 @@ export default function User() {
       valueType: 'password',
       hideInTable: true,
       hideInSearch: true,
+      customProps(isAdd) {
+        if (isAdd) {
+          return {
+            formItemProps: {
+              rules: [
+                {
+                  required: true,
+                },
+              ],
+            },
+          };
+        } else {
+          return {};
+        }
+      },
     },
     {
       dataIndex: 'roles',
@@ -48,7 +70,7 @@ export default function User() {
       },
       valueType: 'select',
       fieldProps: {
-        multiple: true,
+        mode: 'multiple',
       },
       async request() {
         const roles = await api.role.getRoles({});
@@ -56,6 +78,13 @@ export default function User() {
           label: role.name,
           value: role.id,
         }));
+      },
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+          },
+        ],
       },
     },
     {
