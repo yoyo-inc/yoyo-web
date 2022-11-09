@@ -17,15 +17,16 @@ import Detail from './detail';
 export type FormTableColumnType<T = any> = ProColumnType<T> &
   ProFormColumnsType<T> & {
     customFieldProps?: (isAdd: boolean) => any;
+    customProps?: (isAdd: boolean) => FormTableColumnType;
   };
 
 export type FormTableColumnsType<T = any> = FormTableColumnType<T>[] | FormTableColumnType<T>[][];
 
 export type SupportedLayoutTypes = 'ModalForm' | 'DrawerForm' | 'StepsForm';
 
-export interface CommonFormTableProps {
+export interface CommonFormTableProps<T> {
   columns: FormTableColumnsType;
-  onFinish?: <T extends Record<string, any>>(isAdd: boolean, values: T) => Promise<boolean | void>;
+  onFinish?: (isAdd: boolean, values: T) => Promise<boolean | void>;
   moduleName?: string;
   layoutType?: SupportedLayoutTypes;
   steps?: StepFormProps[];
@@ -35,7 +36,7 @@ export interface CommonFormTableProps {
   grid?: boolean;
 }
 
-interface FormTableProps<T> extends CommonFormTableProps {
+interface FormTableProps<T> extends CommonFormTableProps<T> {
   rowKey?: string;
   request: (params: any) => Promise<any>;
   onDelete?: (rowKey: string, entity: T) => Promise<void>;

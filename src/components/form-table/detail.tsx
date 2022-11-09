@@ -14,7 +14,7 @@ export const DEFAULT_FORM_LAYOUT = {
   },
 };
 
-interface FormTableDetailProps<T> extends CommonFormTableProps {
+interface FormTableDetailProps<T> extends CommonFormTableProps<T> {
   detail?: T;
   isAdd?: boolean;
   visible: boolean;
@@ -82,14 +82,20 @@ export default function FormTableDetail<T extends Record<string, any>>(
   }, [visible]);
 
   const convertCustomColumn = (column: FormTableColumnType): FormTableColumnType => {
-    const { customFieldProps, ...extraColumn } = column;
+    const { customFieldProps, customProps, ...extraColumn } = column;
     let fieldProps = {};
     if (customFieldProps) {
       fieldProps = customFieldProps(isAdd);
     }
+
+    let newCustomProps = {};
+    if (customProps) {
+      newCustomProps = customProps(isAdd);
+    }
     return {
       ...extraColumn,
       fieldProps,
+      ...newCustomProps,
     };
   };
 
