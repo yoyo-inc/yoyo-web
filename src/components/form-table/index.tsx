@@ -14,21 +14,24 @@ import { Button, Popconfirm } from 'antd';
 import { flatten } from 'lodash';
 import Detail from './detail';
 
-export type FormTableColumnsType<T = any> = ProColumnType<T> &
-  ProFormColumnsType<T> &
-  FormSchema<T>;
+export type FormTableColumnType<T = any> = ProColumnType<T> &
+  ProFormColumnsType<T> & {
+    customFieldProps?: (isAdd: boolean) => any;
+  };
+
+export type FormTableColumnsType<T = any> = FormTableColumnType<T>[] | FormTableColumnType<T>[][];
 
 export type SupportedLayoutTypes = 'ModalForm' | 'DrawerForm' | 'StepsForm';
 
 export interface CommonFormTableProps {
-  columns: ProFormColumnsType[] | ProFormColumnsType[][];
+  columns: FormTableColumnsType;
   onFinish?: <T extends Record<string, any>>(isAdd: boolean, values: T) => Promise<boolean | void>;
   moduleName?: string;
   layoutType?: SupportedLayoutTypes;
   steps?: StepFormProps[];
   formClassName?: string;
   formProps?: FormSchema;
-  convertDetail?: <T = any, S = any>(values: T) => S;
+  transformDetail?: <T = any, S = any>(values: T) => S;
   grid?: boolean;
 }
 
@@ -59,7 +62,7 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
     tableProps,
     formProps,
     customToolBarRender,
-    convertDetail,
+    transformDetail,
     grid,
   } = props;
   const [visible, { set: setVisible }] = useBoolean(false);
@@ -175,7 +178,7 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
         isAdd={isAdd}
         formClassName={formClassName}
         formProps={formProps}
-        convertDetail={convertDetail}
+        transformDetail={transformDetail}
         grid={grid}
       ></Detail>
     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Drawer } from 'antd';
 import { BetaSchemaForm, ProFormInstance } from '@ant-design/pro-components';
-import { CommonFormTableProps } from '.';
+import { CommonFormTableProps, FormTableColumnsType, FormTableColumnType } from '.';
 
 export const DEFAULT_FORM_LAYOUT = {
   labelCol: {
@@ -36,7 +36,7 @@ export default function FormTableDetail<T extends Record<string, any>>(
     steps,
     formClassName,
     formProps,
-    convertDetail,
+    transformDetail,
     grid = true,
   } = props;
   const formRef = useRef<
@@ -49,9 +49,9 @@ export default function FormTableDetail<T extends Record<string, any>>(
   };
 
   useEffect(() => {
-    if (visible && !isAdd && !!detail) {
-      if (convertDetail) {
-        detail = convertDetail(detail);
+    if (visible && !isAdd) {
+      if (transformDetail) {
+        detail = transformDetail(detail);
       }
 
       const newDetail = Object.keys(detail).map((item) => ({
@@ -59,16 +59,47 @@ export default function FormTableDetail<T extends Record<string, any>>(
         // @ts-ignore
         value: detail[item],
       }));
-
       if (layoutType === 'StepsForm') {
-        formRef.current?.forEach((formInstanceRef) => {
-          formInstanceRef.current?.setFields(newDetail);
-        });
+        (formRef.current as React.MutableRefObject<ProFormInstance<any> | undefined>[])?.forEach(
+          (formInstanceRef) => {
+            formInstanceRef.current?.setFields(newDetail);
+          },
+        );
       } else {
-        formRef.current?.setFields(newDetail);
+        (formRef.current as ProFormInstance)?.setFields(newDetail);
+      }
+    } else {
+      if (layoutType === 'StepsForm') {
+        (formRef.current as React.MutableRefObject<ProFormInstance<any> | undefined>[])?.forEach(
+          (formInstanceRef) => {
+            formInstanceRef.current?.resetFields();
+          },
+        );
+      } else {
+        (formRef.current as ProFormInstance)?.resetFields();
       }
     }
-  }, [detail]);
+  }, [visible]);
+
+  const convertCustomColumn = (column: FormTableColumnType): FormTableColumnType => {
+    const { customFieldProps, ...extraColumn } = column;
+    let fieldProps = {};
+    if (customFieldProps) {
+      fieldProps = customFieldProps(isAdd);
+    }
+    return {
+      ...extraColumn,
+      fieldProps,
+    };
+  };
+
+  columns = columns.map((column) => {
+    if (Array.isArray(column)) {
+      return column.map(convertCustomColumn);
+    } else {
+      return convertCustomColumn(column);
+    }
+  }) as FormTableColumnsType;
 
   const SchemaFormDom = (extraProps: any = {}) => {
     let refProps = {} as any;
@@ -90,7 +121,11 @@ export default function FormTableDetail<T extends Record<string, any>>(
           //@ts-ignore
           return onFinish(isAdd, values);
         }}
-        formProps={{ omitNil: false, className: formClassName, destroyOnClose: true, ...formProps }}
+        omitNil={false}
+        className={formClassName}
+        modalProps={{ maskClosable: false }}
+        // drawerProps={{ destroyOnClose: true }}
+        {...formProps}
         {...DEFAULT_FORM_LAYOUT}
         {...extraProps}
       ></BetaSchemaForm>
