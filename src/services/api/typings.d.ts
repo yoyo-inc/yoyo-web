@@ -1,10 +1,27 @@
 declare namespace API {
+  type Alert = {
+    content?: string;
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: number;
+    level?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    remark?: string;
+    resolvedStatus?: number;
+    /** 更新时间 */
+    startAt?: string;
+    status?: number;
+    type?: string;
+  };
+
   type AuditLog = {
     /** 创建时间 */
     createTime?: string;
     detail?: string;
     /** 主键 */
-    id?: string;
+    id?: number;
     ip?: string;
     /** 更新时间 */
     modifyTime?: string;
@@ -12,7 +29,7 @@ declare namespace API {
     operation?: string;
     status?: number;
     user?: User;
-    user_id?: string;
+    userID?: number;
   };
 
   type deleteRoleRoleIDParams = {
@@ -25,7 +42,14 @@ declare namespace API {
     userID: string;
   };
 
-  type getAuditLogParams = {
+  type getAlertsParams = {
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
+  };
+
+  type getAuditLogsParams = {
     /** 页数 */
     current?: number;
     /** 每页大小 */
@@ -33,6 +57,8 @@ declare namespace API {
   };
 
   type getRolesParams = {
+    /** 是否默认 */
+    default?: boolean;
     /** 角色名 */
     name?: string;
   };
@@ -52,12 +78,12 @@ declare namespace API {
     /** 创建时间 */
     createTime?: string;
     /** 主键 */
-    id?: string;
+    id?: number;
     /** 更新时间 */
     modifyTime?: string;
     /** 组织名 */
     name?: string;
-    parentId?: string;
+    parentId?: number;
   };
 
   type PaginatedData = {
@@ -68,28 +94,36 @@ declare namespace API {
   type Permission = {
     /** 创建时间 */
     createTime?: string;
+    /** 介绍 */
+    description?: string;
+    /** 是否开启 */
+    enable?: boolean;
     /** 主键 */
-    id?: string;
+    id?: number;
     /** 更新时间 */
     modifyTime?: string;
     /** 权限名称 */
     name?: string;
     /** 父级权限 */
-    parentID?: string;
+    parentID?: number;
   };
 
   type PermissionVO = {
     children?: PermissionVO[];
     /** 创建时间 */
     createTime?: string;
+    /** 介绍 */
+    description?: string;
+    /** 是否开启 */
+    enable?: boolean;
     /** 主键 */
-    id?: string;
+    id?: number;
     /** 更新时间 */
     modifyTime?: string;
     /** 权限名称 */
     name?: string;
     /** 父级权限 */
-    parentID?: string;
+    parentID?: number;
   };
 
   type Response = {
@@ -103,7 +137,8 @@ declare namespace API {
     /** 创建时间 */
     createTime?: string;
     /** 主键 */
-    id?: string;
+    id?: number;
+    is_default?: boolean;
     /** 更新时间 */
     modifyTime?: string;
     name: string;
@@ -115,12 +150,29 @@ declare namespace API {
     /** 创建时间 */
     createTime?: string;
     /** 主键 */
-    id?: string;
+    id?: number;
+    is_default?: boolean;
     /** 更新时间 */
     modifyTime?: string;
     name: string;
-    permissions?: string[];
+    permissions?: number[];
     remark?: string;
+  };
+
+  type UpdateAlertVO = {
+    content?: string;
+    /** 创建时间 */
+    createTime?: string;
+    id: string;
+    level?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    remark?: string;
+    resolvedStatus?: number;
+    /** 更新时间 */
+    startAt?: string;
+    status?: number;
+    type?: string;
   };
 
   type User = {
@@ -133,14 +185,14 @@ declare namespace API {
     /** 邮箱 */
     email?: string;
     /** 主键 */
-    id?: string;
+    id?: number;
     /** 更新时间 */
     modifyTime?: string;
     /** 昵称 */
     nickname?: string;
     organization?: Organization;
     /** 组织ID */
-    organizationID?: string;
+    organizationID?: number;
     /** 密码 */
     password?: string;
     /** 手机号 */
@@ -163,19 +215,19 @@ declare namespace API {
     /** 邮箱 */
     email?: string;
     /** 主键 */
-    id?: string;
+    id?: number;
     /** 更新时间 */
     modifyTime?: string;
     /** 昵称 */
     nickname?: string;
     organization?: Organization;
     /** 组织ID */
-    organizationID?: string;
+    organizationID?: number;
     /** 密码 */
     password?: string;
     /** 手机号 */
     phone?: string;
-    roles?: string[];
+    roles?: number[];
     /** 性别 0: 男 1: 女 */
     sex?: number;
     /** 账户名 */

@@ -48,6 +48,14 @@ export async function getUserCurrent(options?: { [key: string]: any }) {
   });
 }
 
+/** 查询当前用户权限信息 GET /user/current/permissions */
+export async function getUserCurrentPermissions(options?: { [key: string]: any }) {
+  return request<API.Response & { data?: any[] }>('/user/current/permissions', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 查询用户列表 GET /users */
 export async function getUsers(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
