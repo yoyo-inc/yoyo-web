@@ -75,7 +75,6 @@ export const layout = ({ initialState }: { initialState: { currentUser?: API.Use
     layout: 'mix',
     menu: {
       locale: false,
-      // type: 'group',
     },
     token: {
       header: {
@@ -110,7 +109,6 @@ export const layout = ({ initialState }: { initialState: { currentUser?: API.Use
     },
     onPageChange: () => {
       if (history.location.pathname !== loginPath && !initialState?.currentUser) {
-        console.log(111);
         history.push(loginPath);
       }
     },
