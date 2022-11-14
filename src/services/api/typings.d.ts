@@ -63,6 +63,14 @@ declare namespace API {
     name?: string;
   };
 
+  type getRunlogsParams = {
+    filename?: string;
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
+  };
+
   type getUsersParams = {
     /** 手机号 */
     phone?: string;
@@ -157,6 +165,17 @@ declare namespace API {
     name: string;
     permissions?: number[];
     remark?: string;
+  };
+
+  type RunLog = {
+    /** 创建时间 */
+    createTime?: string;
+    filename?: string;
+    filesize?: string;
+    /** 主键 */
+    id?: number;
+    /** 更新时间 */
+    modifyTime?: string;
   };
 
   type UpdateAlertVO = {
