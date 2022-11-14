@@ -39,6 +39,68 @@ export default [
         icon: 'user',
         access: 'user',
       },
+      {
+        path: '/setting/log',
+        component: 'setting/log',
+        name: '日志管理',
+        access: 'log',
+        routes: [
+          {
+            path: '/setting/log',
+            redirect: '/setting/log/audit_log',
+          },
+          {
+            path: '/setting/log/audit_log',
+            component: 'setting/log/audit-log',
+            name: '审计日志',
+            access: 'audit_log',
+            hideInMenu: true,
+          },
+          {
+            path: '/setting/log/security_log',
+            component: 'setting/log/security-log',
+            name: '安全日志',
+            access: 'security_log',
+            hideInMenu: true,
+          },
+          {
+            path: '/setting/log/run_log',
+            component: 'setting/log/run-log',
+            name: '运行日志',
+            access: 'run_log',
+            hideInMenu: true,
+          },
+          {
+            path: '/setting/log/log_config',
+            component: 'setting/log/log-config',
+            name: '日志设置',
+            access: 'log_config',
+            hideInMenu: true,
+          },
+        ],
+      },
+      {
+        path: '/setting/alert',
+        component: 'setting/alert',
+        name: '告警管理',
+        access: 'alert',
+        routes: [
+          {
+            path: '/setting/alert/list',
+            component: 'setting/alert/list',
+            name: '告警列表',
+            access: 'alert_list',
+            hideInMenu: true,
+          },
+          {
+            path: '/setting/alert/config',
+            component: 'setting/alert/alert-config',
+            name: '告警配置',
+            access: 'alert_config',
+            hideInMenu: true,
+          },
+        ],
+      },
     ],
   },
 ];
