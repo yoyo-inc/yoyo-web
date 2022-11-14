@@ -13,6 +13,7 @@ import { useBoolean } from 'ahooks';
 import { Button, Popconfirm } from 'antd';
 import { flatten } from 'lodash';
 import Detail from './detail';
+import Desc from './desc';
 
 export type FormTableColumnType<T = any> = ProColumnType<T> &
   ProFormColumnsType<T> & {
@@ -32,7 +33,7 @@ export interface CommonFormTableProps<T> {
   steps?: StepFormProps[];
   formClassName?: string;
   formProps?: FormSchema;
-  transformDetail?: <T = any, S = any>(values: T) => S;
+  transformDetail?: (values: T) => any;
   grid?: boolean;
 }
 
@@ -68,6 +69,8 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
   } = props;
   const [visible, { set: setVisible }] = useBoolean(false);
   const [detail, setDetail] = useState<T>();
+  const [openDesc, { set: setOpenDesc }] = useBoolean(false);
+  const [desc, setDesc] = useState<T>();
   const [isAdd, { set: setIsAdd }] = useBoolean(true);
   const tableRef = useRef<ActionType>();
 
@@ -83,6 +86,11 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
         tableRef.current?.reload();
       });
     }
+  };
+
+  const handleDesc = (entity: T) => {
+    setDesc(entity);
+    setOpenDesc(true);
   };
 
   const columnsWithOperator = useMemo(() => {
@@ -103,9 +111,17 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
       newColumns.push({
         title: '操作',
         valueType: 'option',
-        width: 120,
+        width: 160,
         render(_: any, entity: T) {
           return [
+            <a
+              key="desc"
+              onClick={() => {
+                handleDesc(entity);
+              }}
+            >
+              查看
+            </a>,
             <a key="edit" onClick={() => handleEdit(entity)}>
               编辑
             </a>,
@@ -159,6 +175,9 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
         rowKey={rowKey}
         columns={columnsWithOperator}
         actionRef={tableRef}
+        search={{
+          defaultCollapsed: false,
+        }}
         toolBarRender={(action, rows) => {
           return customToolBarRender
             ? customToolBarRender(defaultToolBarDom, action, rows)
@@ -182,6 +201,13 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
         transformDetail={transformDetail}
         grid={grid}
       ></Detail>
+      <Desc
+        columns={columns}
+        open={openDesc}
+        setOpen={setOpenDesc}
+        desc={desc}
+        moduleName={moduleName}
+      ></Desc>
     </div>
   );
 }
