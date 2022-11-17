@@ -86,6 +86,10 @@ export default [
         access: 'alert',
         routes: [
           {
+            path: '/setting/alert',
+            redirect: '/setting/alert/list',
+          },
+          {
             path: '/setting/alert/list',
             component: 'setting/alert/list',
             name: '告警列表',
@@ -97,6 +101,13 @@ export default [
             component: 'setting/alert/alert-config',
             name: '告警配置',
             access: 'alert_config',
+            hideInMenu: true,
+          },
+          {
+            path: '/setting/alert/access',
+            component: 'setting/alert/alert-access',
+            name: '告警接入',
+            access: 'alert_access',
             hideInMenu: true,
           },
         ],
