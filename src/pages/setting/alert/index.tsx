@@ -16,6 +16,10 @@ export default function Alert() {
             key: 'config',
             label: '告警配置',
           },
+          {
+            key: 'access',
+            label: '告警接入',
+          },
         ]}
         initialActiveKey="list"
       />
