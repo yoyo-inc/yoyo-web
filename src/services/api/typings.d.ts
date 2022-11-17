@@ -16,6 +16,35 @@ declare namespace API {
     type?: string;
   };
 
+  type AlertAccess = {
+    accessIP: string;
+    contentField?: string;
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: number;
+    levelField?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    remark?: string;
+    typeField?: string;
+  };
+
+  type AlertConfig = {
+    /** 创建时间 */
+    createTime?: string;
+    emailEnable?: boolean;
+    /** 主键 */
+    id?: number;
+    /** 更新时间 */
+    modifyTime?: string;
+    smtpAuthPassword?: string;
+    smtpAuthUser?: string;
+    smtpReceivers?: Record<string, any>[];
+    smtpSender?: string;
+    smtpServer?: string;
+  };
+
   type AuditLog = {
     /** 创建时间 */
     createTime?: string;
@@ -32,6 +61,11 @@ declare namespace API {
     userID?: number;
   };
 
+  type deleteAlertAccessIdParams = {
+    /** 参数 */
+    id: string;
+  };
+
   type deleteRoleRoleIDParams = {
     /** 参数 */
     roleID: string;
@@ -40,6 +74,12 @@ declare namespace API {
   type deleteUserUserIDParams = {
     /** 用户ID */
     userID: string;
+  };
+
+  type getAlertAccessesParams = {
+    accessIP?: string;
+    endTime?: string;
+    startTime?: string;
   };
 
   type getAlertsParams = {
@@ -176,6 +216,19 @@ declare namespace API {
     id?: number;
     /** 更新时间 */
     modifyTime?: string;
+  };
+
+  type UpdateAlertAccessVO = {
+    accessIP: string;
+    contentField?: string;
+    /** 创建时间 */
+    createTime?: string;
+    id: number;
+    levelField?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    remark?: string;
+    typeField?: string;
   };
 
   type UpdateAlertVO = {
