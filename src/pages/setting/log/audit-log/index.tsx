@@ -76,14 +76,18 @@ export default function AuditLog() {
     {
       title: '描述',
       dataIndex: 'detail',
+      width: 460,
       hideInSearch: true,
+      ellipsis: true,
     },
   ];
 
   return (
     <div>
       <FormTable
+        moduleName="审计日志"
         columns={columns}
+        actions={['desc']}
         request={async () => {
           return api.auditLog.getAuditLogs({}).then(transformPaginatedData);
         }}
