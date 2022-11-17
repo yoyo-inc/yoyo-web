@@ -8,10 +8,11 @@ export interface DescProps<T> extends CommonFormTableProps<T> {
   open: boolean;
   setOpen: (open: boolean) => void;
   desc: T;
+  onCancel: () => void;
 }
 
 export default function Desc<T>(props: DescProps<T>) {
-  const { columns, open, setOpen, desc = {}, moduleName } = props;
+  const { columns, open, setOpen, onCancel, desc = {}, moduleName } = props;
 
   return (
     <Modal
@@ -19,18 +20,22 @@ export default function Desc<T>(props: DescProps<T>) {
       open={open}
       onCancel={() => {
         setOpen(false);
+        onCancel();
       }}
       title={moduleName + '详情'}
+      destroyOnClose
     >
       <ProDescriptions
         className={styles.desc}
         layout="horizontal"
         column={1}
         columns={columns}
-        request={() => ({
-          success: true,
-          data: desc,
-        })}
+        request={() =>
+          Promise.resolve({
+            success: true,
+            data: desc,
+          })
+        }
       ></ProDescriptions>
     </Modal>
   );

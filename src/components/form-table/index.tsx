@@ -40,8 +40,9 @@ export interface CommonFormTableProps<T> {
 interface FormTableProps<T> extends CommonFormTableProps<T> {
   rowKey?: string;
   request: (params: any) => Promise<any>;
-  onDelete?: (rowKey: string, entity: T) => Promise<void>;
+  onDelete?: (rowKey: string, entity: T) => Promise<boolean | void>;
   tableProps?: ProTableProps<T, any>;
+  actions?: Array<'desc' | 'edit' | 'delete'>;
   customToolBarRender?: (
     dom: ReactNode,
     action: ActionType | undefined,
@@ -66,6 +67,7 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
     customToolBarRender,
     transformDetail,
     grid,
+    actions = ['edit', 'delete'],
   } = props;
   const [visible, { set: setVisible }] = useBoolean(false);
   const [detail, setDetail] = useState<T>();
@@ -114,26 +116,32 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
         width: 160,
         render(_: any, entity: T) {
           return [
-            <a
-              key="desc"
-              onClick={() => {
-                handleDesc(entity);
-              }}
-            >
-              查看
-            </a>,
-            <a key="edit" onClick={() => handleEdit(entity)}>
-              编辑
-            </a>,
-            <Popconfirm
-              key="delete"
-              title="确定删除?"
-              onConfirm={() => {
-                handleDelete(entity);
-              }}
-            >
-              <a>删除</a>
-            </Popconfirm>,
+            actions.includes('desc') && (
+              <a
+                key="desc"
+                onClick={() => {
+                  handleDesc(entity);
+                }}
+              >
+                查看
+              </a>
+            ),
+            actions.includes('edit') && (
+              <a key="edit" onClick={() => handleEdit(entity)}>
+                编辑
+              </a>
+            ),
+            actions.includes('delete') && (
+              <Popconfirm
+                key="delete"
+                title="确定删除?"
+                onConfirm={() => {
+                  handleDelete(entity);
+                }}
+              >
+                <a>删除</a>
+              </Popconfirm>
+            ),
           ];
         },
       });
@@ -205,6 +213,9 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
         columns={columns}
         open={openDesc}
         setOpen={setOpenDesc}
+        onCancel={() => {
+          setDesc();
+        }}
         desc={desc}
         moduleName={moduleName}
       ></Desc>
