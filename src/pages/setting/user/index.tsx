@@ -7,6 +7,20 @@ import { request } from '@umijs/max';
 export default function User() {
   const columns: FormTableColumnsType<API.User> = [
     {
+      title: '创建时间',
+      dataIndex: 'createTime',
+      valueType: 'dateTimeRange',
+      width: 240,
+      search: {
+        transform(value) {
+          return { startTime: value[0], endTime: value[1] };
+        },
+      },
+      render(_: any, entity) {
+        return entity.createTime;
+      },
+    },
+    {
       dataIndex: 'id',
       hideInTable: true,
       hideInSearch: true,
