@@ -20,7 +20,6 @@ export default function TabsMenu(props: TabsMenuProps) {
   const typeExp = new RegExp(commonPath + '/(?<type>.*)');
   const type = typeExp.exec(location.pathname)?.groups?.type;
   const [activeKey, setActiveKey] = useState(type || initialActiveKey);
-  console.log(activeKey);
 
   return (
     <div>
