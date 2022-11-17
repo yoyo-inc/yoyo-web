@@ -42,7 +42,10 @@ export const request: RequestConfig = {
         throw error;
       }
     },
-    errorHandler(error) {
+    errorHandler(error, opts) {
+      if (opts.skipErrorHandler) {
+        return;
+      }
       // @ts-ignore
       if (error.info) {
         message.error(error.message);
@@ -115,7 +118,7 @@ export const layout = ({ initialState }: { initialState: { currentUser?: API.Use
     childrenRender: (dom: any) => {
       return (
         <>
-          <ProPageHeader title={false} />
+          <ProPageHeader title={false} prefixedClassName="" />
           {dom}
         </>
       );
