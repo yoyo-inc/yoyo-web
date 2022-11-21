@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, history } from '@umijs/max';
 import { Tabs } from 'antd';
 import { Outlet } from '@umijs/max';
@@ -20,6 +20,10 @@ export default function TabsMenu(props: TabsMenuProps) {
   const typeExp = new RegExp(commonPath + '/(?<type>.*)');
   const type = typeExp.exec(location.pathname)?.groups?.type;
   const [activeKey, setActiveKey] = useState(type || initialActiveKey);
+
+  useEffect(() => {
+    setActiveKey(type);
+  }, [type]);
 
   return (
     <div>
