@@ -2,8 +2,10 @@ import React from 'react';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
 import { transformPaginatedData } from '@/utils';
+import { Tag } from 'antd';
 
 const FIELDS = [
+  ['告警时间字段', 'startAtField'],
   ['类型字段', 'typeField'],
   ['级别字段', 'levelField'],
   ['告警内容字段', 'contentField'],
@@ -58,9 +60,12 @@ export default function AlertAccess() {
       dataIndex: '',
       hideInSearch: true,
       hideInForm: true,
-      render(_: any, entity) {
-        //@ts-ignore
-        return FIELDS.map((item) => `${item[0]}=>${entity[item[1]]}`).join(' ');
+      render(_: any, entity: any) {
+        return FIELDS.map((item) => (
+          <Tag>
+            {item[0]}:{entity[item[1]] || '无'}
+          </Tag>
+        ));
       },
     },
     {
