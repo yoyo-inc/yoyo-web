@@ -5,3 +5,10 @@ export function transformPaginatedData(result: API.Response) {
     data: result.data.list,
   };
 }
+
+export function expand(record: Record<string, any>) {
+  return Object.keys(record).map((key) => ({
+    name: key,
+    value: record[key],
+  }));
+}
