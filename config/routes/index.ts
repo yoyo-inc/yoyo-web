@@ -22,7 +22,7 @@ export default [
   },
   {
     path: '/setting',
-    name: '系统设置',
+    name: '系统管理',
     icon: 'setting',
     access: 'setting',
     routes: [
@@ -110,7 +110,19 @@ export default [
             access: 'alert_access',
             hideInMenu: true,
           },
+          {
+            path: '/setting/alert/push',
+            component: 'setting/alert/alert-push',
+            name: '告警推送',
+            access: 'alert_push',
+            hideInMenu: true,
+          },
         ],
+      },
+      {
+        path: '/setting/system',
+        component: 'setting/system',
+        name: '系统设置',
       },
     ],
   },
