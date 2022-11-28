@@ -18,9 +18,9 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@ant-design/pro-components": "2.3.30",
+    "@ant-design/pro-components": "2.3.34",
     "@react-spring/web": "^9.5.5",
-    "@umijs/max": "v4.0.30",
+    "@umijs/max": "4.0.32",
     "ahooks": "^3.7.1",
     "antd": "4.23.5",
     "lodash": "^4.17.21",
