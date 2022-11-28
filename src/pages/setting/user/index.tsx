@@ -10,7 +10,7 @@ export default function User() {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
-      width: 240,
+      width: 220,
       search: {
         transform(value) {
           return { startTime: value[0], endTime: value[1] };
