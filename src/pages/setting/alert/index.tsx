@@ -20,6 +20,10 @@ export default function Alert() {
             key: 'access',
             label: '告警接入',
           },
+          {
+            key: 'push',
+            label: '告警推送',
+          },
         ]}
         initialActiveKey="list"
       />
