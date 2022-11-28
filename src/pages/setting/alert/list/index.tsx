@@ -1,16 +1,32 @@
 import React from 'react';
+import { Popconfirm } from 'antd';
+import { useSearchParams } from '@umijs/max';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
 import { transformPaginatedData } from '@/utils';
-import { Popconfirm } from 'antd';
 
 export default function AlertList() {
+  const [searchParams] = useSearchParams();
+
   const columns: FormTableColumnsType = [
     {
       title: '告警时间',
       dataIndex: 'startAt',
+      valueType: 'dateTimeRange',
+      width: 220,
+      search: {
+        transform(value) {
+          return { startTime: value[0], endTime: value[1] };
+        },
+      },
+      render(_: any, entity) {
+        return entity.createTime;
+      },
     },
-
+    {
+      title: '来源',
+      dataIndex: 'from',
+    },
     {
       title: '类型',
       dataIndex: 'type',
@@ -56,6 +72,10 @@ export default function AlertList() {
           },
         ],
       ]),
+      initialValue: searchParams.get('status')
+        ? //@ts-ignore
+          Number.parseInt(searchParams.get('status'))
+        : undefined,
     },
     {
       title: '处置状态',
