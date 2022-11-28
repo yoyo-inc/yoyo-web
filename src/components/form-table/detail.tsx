@@ -82,8 +82,7 @@ export default function FormTableDetail<T extends Record<string, any>>(
   }, [visible]);
 
   const convertCustomColumn = (column: FormTableColumnType): FormTableColumnType => {
-    const { customFieldProps, customProps, ...extraColumn } = column;
-    let fieldProps = {};
+    let { customFieldProps, fieldProps = {}, customProps, ...extraColumn } = column;
     if (customFieldProps) {
       fieldProps = customFieldProps(isAdd);
     }

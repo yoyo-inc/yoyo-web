@@ -10,7 +10,8 @@ import {
   ProTableProps,
 } from '@ant-design/pro-components';
 import { useBoolean } from 'ahooks';
-import { Button, Popconfirm } from 'antd';
+import { history } from '@umijs/max';
+import { Button, FormInstance, Popconfirm } from 'antd';
 import { flatten } from 'lodash';
 import Detail from './detail';
 import Desc from './desc';
@@ -72,9 +73,10 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
   const [visible, { set: setVisible }] = useBoolean(false);
   const [detail, setDetail] = useState<T>();
   const [openDesc, { set: setOpenDesc }] = useBoolean(false);
-  const [desc, setDesc] = useState<T>();
+  const [desc, setDesc] = useState<T | undefined>();
   const [isAdd, { set: setIsAdd }] = useBoolean(true);
   const tableRef = useRef<ActionType>();
+  const formRef = useRef<FormInstance>();
 
   const handleEdit = (entity: T) => {
     setIsAdd(false);
@@ -192,6 +194,15 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
             : [defaultToolBarDom];
         }}
         request={request}
+        onReset={() => {
+          tableRef.current?.reset?.();
+          const values = formRef.current?.getFieldsValue(true);
+          formRef.current?.setFields(
+            Object.keys(values).map((key) => ({ name: key, value: undefined })),
+          );
+          history.push(history.location.pathname);
+        }}
+        formRef={formRef}
         {...tableProps}
       ></ProTable>
       <Detail
@@ -214,7 +225,7 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
         open={openDesc}
         setOpen={setOpenDesc}
         onCancel={() => {
-          setDesc();
+          setDesc(undefined);
         }}
         desc={desc}
         moduleName={moduleName}
