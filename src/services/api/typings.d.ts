@@ -3,6 +3,7 @@ declare namespace API {
     content?: string;
     /** 创建时间 */
     createTime?: string;
+    from?: string;
     /** 主键 */
     id?: number;
     level?: string;
@@ -27,6 +28,7 @@ declare namespace API {
     /** 更新时间 */
     modifyTime?: string;
     remark?: string;
+    startAtField?: string;
     typeField?: string;
   };
 
@@ -43,6 +45,26 @@ declare namespace API {
     smtpReceivers?: Record<string, any>[];
     smtpSender?: string;
     smtpServer?: string;
+  };
+
+  type AlertPush = {
+    alertTypes?: string[];
+    /** 创建时间 */
+    createTime?: string;
+    enable?: boolean;
+    /** 主键 */
+    id?: number;
+    kafkaAddr?: string;
+    kafkaNetwork?: string;
+    kafkaPort?: number;
+    kafkaTopic?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    syslogAddr?: string;
+    syslogNetwork?: string;
+    syslogPort?: number;
+    syslogTag?: string;
+    type?: string;
   };
 
   type AuditLog = {
@@ -66,6 +88,11 @@ declare namespace API {
     id: string;
   };
 
+  type deleteAlertPushParams = {
+    /** 参数 */
+    id: string;
+  };
+
   type deleteRoleRoleIDParams = {
     /** 参数 */
     roleID: string;
@@ -82,7 +109,29 @@ declare namespace API {
     startTime?: string;
   };
 
+  type getAlertCountParams = {
+    resolvedStatus?: number;
+    status?: number;
+  };
+
   type getAlertsParams = {
+    content?: string;
+    /** 创建时间 */
+    createTime?: string;
+    endTime?: string;
+    from?: string;
+    /** 主键 */
+    id?: number;
+    level?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    remark?: string;
+    resolvedStatus?: number;
+    /** 更新时间 */
+    startAt?: string;
+    startTime?: string;
+    status?: number;
+    type?: string;
     /** 页数 */
     current?: number;
     /** 每页大小 */
@@ -174,6 +223,23 @@ declare namespace API {
     parentID?: number;
   };
 
+  type ResolveAlertVO = {
+    content?: string;
+    /** 创建时间 */
+    createTime?: string;
+    from?: string;
+    id: string;
+    level?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    remark?: string;
+    resolvedStatus?: number;
+    /** 更新时间 */
+    startAt?: string;
+    status?: number;
+    type?: string;
+  };
+
   type Response = {
     code?: string;
     data?: any;
@@ -218,6 +284,18 @@ declare namespace API {
     modifyTime?: string;
   };
 
+  type SystemSetting = {
+    /** 创建时间 */
+    createTime?: string;
+    description?: string;
+    /** 主键 */
+    id?: number;
+    logo?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    name?: string;
+  };
+
   type UpdateAlertAccessVO = {
     accessIP: string;
     contentField?: string;
@@ -228,23 +306,19 @@ declare namespace API {
     /** 更新时间 */
     modifyTime?: string;
     remark?: string;
+    startAtField?: string;
     typeField?: string;
   };
 
-  type UpdateAlertVO = {
-    content?: string;
+  type UpdateSystemSettingVO = {
     /** 创建时间 */
     createTime?: string;
-    id: string;
-    level?: string;
+    description?: string;
+    id: number;
+    logo?: string;
     /** 更新时间 */
     modifyTime?: string;
-    remark?: string;
-    resolvedStatus?: number;
-    /** 更新时间 */
-    startAt?: string;
-    status?: number;
-    type?: string;
+    name?: string;
   };
 
   type User = {
