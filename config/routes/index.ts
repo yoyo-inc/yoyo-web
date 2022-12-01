@@ -120,6 +120,11 @@ export default [
         ],
       },
       {
+        path: '/setting/resource',
+        component: 'setting/resource',
+        name: '资源管理',
+      },
+      {
         path: '/setting/system',
         component: 'setting/system',
         name: '系统设置',
