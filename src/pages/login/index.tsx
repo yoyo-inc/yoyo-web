@@ -10,12 +10,12 @@ import styles from './index.less';
 import api from '@/services/api';
 
 export default function Login() {
-  const { setInitialState } = useModel('@@initialState');
+  const { initialState, setInitialState } = useModel('@@initialState');
   return (
     <div className={styles.login}>
       <LoginFormPage
-        title={'yoyo-web'}
-        subTitle={'瑞士军刀'}
+        title={initialState?.systemSetting?.name}
+        subTitle={initialState?.systemSetting?.description}
         backgroundImageUrl="https://gw.alipayobjects.com/zos/rmsportal/FfdJeJRQWjEeGTpqgBKj.png"
         logo={logo}
         onFinish={async (data: any) => {
