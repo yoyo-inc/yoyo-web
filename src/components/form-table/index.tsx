@@ -43,7 +43,7 @@ interface FormTableProps<T> extends CommonFormTableProps<T> {
   request: (params: any) => Promise<any>;
   onDelete?: (rowKey: string, entity: T) => Promise<boolean | void>;
   tableProps?: ProTableProps<T, any>;
-  actions?: Array<'desc' | 'edit' | 'delete'>;
+  actions?: Array<'desc' | 'edit' | 'delete' | 'add'>;
   customToolBarRender?: (
     dom: ReactNode,
     action: ActionType | undefined,
@@ -68,7 +68,7 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
     customToolBarRender,
     transformDetail,
     grid,
-    actions = ['edit', 'delete'],
+    actions = ['edit', 'delete', 'add'],
   } = props;
   const [visible, { set: setVisible }] = useBoolean(false);
   const [detail, setDetail] = useState<T>();
@@ -161,7 +161,7 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
     return Promise.resolve();
   };
 
-  const defaultToolBarDom = (
+  const defaultToolBarDom = actions.includes('add') && (
     <Button
       type="primary"
       onClick={() => {
