@@ -21,10 +21,10 @@ export default function Log() {
             key: 'run_log',
             label: '运行日志',
           },
-          {
-            key: 'log_config',
-            label: '日志设置',
-          },
+          // {
+          //   key: 'log_config',
+          //   label: '日志设置',
+          // },
         ]}
       />
     </Page>
