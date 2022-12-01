@@ -5,6 +5,7 @@ import { AlertOutlined } from '@ant-design/icons';
 
 import styles from './index.less';
 import api from '@/services/api';
+import { request } from '@umijs/max';
 
 export default function RightContent() {
   const { data: count } = useRequest(api.alert.getAlertCount, {
@@ -20,12 +21,14 @@ export default function RightContent() {
       case 'system':
         break;
       case 'logout':
-        localStorage.removeItem('token');
-        setInitialState((state) => ({
-          ...state,
-          currentUser: {} as API.User,
-        }));
-        history.push('/login');
+        request('/logout').then(() => {
+          localStorage.removeItem('token');
+          setInitialState((state) => ({
+            ...state,
+            currentUser: {} as API.User,
+          }));
+          history.push('/login');
+        });
         break;
     }
   };
