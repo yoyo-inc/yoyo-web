@@ -57,7 +57,8 @@ export const request: RequestConfig = {
 };
 
 export type IInitialState = {
-  currentUser: API.User;
+  currentUser?: API.User;
+  systemSetting?: API.SystemSetting;
 };
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
@@ -65,16 +66,16 @@ export type IInitialState = {
 export async function getInitialState(): Promise<IInitialState> {
   const initialState = {} as IInitialState;
   try {
-    const result = await api.user.getUserCurrent({});
-    initialState.currentUser = result.data;
+    initialState.systemSetting = (await api.system.getSystemSettings({})).data;
+    initialState.currentUser = (await api.user.getUserCurrent({})).data;
   } catch (e) {}
   return initialState;
 }
 
-export const layout = ({ initialState }: { initialState: { currentUser?: API.User } }) => {
+export const layout = ({ initialState }: { initialState: IInitialState }) => {
   return {
     logo,
-    title: 'Yoyo-Web',
+    title: initialState?.systemSetting?.name,
     layout: 'mix',
     menu: {
       locale: false,
