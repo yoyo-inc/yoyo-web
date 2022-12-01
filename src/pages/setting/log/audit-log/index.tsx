@@ -86,6 +86,14 @@ export default function AuditLog() {
       width: 360,
       hideInSearch: true,
       ellipsis: true,
+      customFieldProps(isAdd, isDesc) {
+        if (isDesc) {
+          return {
+            ellipsis: false,
+          };
+        }
+        return {};
+      },
     },
   ];
 
