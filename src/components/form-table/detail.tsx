@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Drawer } from 'antd';
 import { BetaSchemaForm, ProFormInstance } from '@ant-design/pro-components';
-import { CommonFormTableProps, FormTableColumnsType, FormTableColumnType } from '.';
+import { CommonFormTableProps, FormTableColumnsType, FormTableColumnType, processColumns } from '.';
 
 export const DEFAULT_FORM_LAYOUT = {
   labelCol: {
@@ -25,7 +25,7 @@ export default function FormTableDetail<T extends Record<string, any>>(
   props: FormTableDetailProps<T>,
 ) {
   let {
-    detail = {},
+    detail = {} as T,
     isAdd = true,
     columns,
     onFinish,
@@ -47,6 +47,8 @@ export default function FormTableDetail<T extends Record<string, any>>(
   const hide = () => {
     onVisibleChange(false);
   };
+
+  columns = processColumns(columns, true, false);
 
   useEffect(() => {
     if (visible && !isAdd) {
@@ -80,31 +82,6 @@ export default function FormTableDetail<T extends Record<string, any>>(
       }
     }
   }, [visible]);
-
-  const convertCustomColumn = (column: FormTableColumnType): FormTableColumnType => {
-    let { customFieldProps, fieldProps = {}, customProps, ...extraColumn } = column;
-    if (customFieldProps) {
-      fieldProps = customFieldProps(isAdd);
-    }
-
-    let newCustomProps = {};
-    if (customProps) {
-      newCustomProps = customProps(isAdd);
-    }
-    return {
-      ...extraColumn,
-      fieldProps,
-      ...newCustomProps,
-    };
-  };
-
-  columns = columns.map((column) => {
-    if (Array.isArray(column)) {
-      return column.map(convertCustomColumn);
-    } else {
-      return convertCustomColumn(column);
-    }
-  }) as FormTableColumnsType;
 
   const SchemaFormDom = (extraProps: any = {}) => {
     let refProps = {} as any;

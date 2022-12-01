@@ -1,8 +1,8 @@
 import React from 'react';
 import { ProDescriptions } from '@ant-design/pro-components';
 import { Modal } from 'antd';
-import { CommonFormTableProps, FormTableColumnType } from '.';
 import styles from './desc.less';
+import { CommonFormTableProps, processColumns } from '.';
 
 export interface DescProps<T> extends CommonFormTableProps<T> {
   open: boolean;
@@ -12,7 +12,9 @@ export interface DescProps<T> extends CommonFormTableProps<T> {
 }
 
 export default function Desc<T>(props: DescProps<T>) {
-  const { columns, open, setOpen, onCancel, desc = {}, moduleName } = props;
+  let { columns, open, setOpen, onCancel, desc = {}, moduleName } = props;
+
+  columns = processColumns(columns, false, true);
 
   return (
     <Modal

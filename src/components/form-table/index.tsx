@@ -8,6 +8,7 @@ import {
   //@ts-ignore
   FormSchema,
   ProTableProps,
+  ProDescriptionsItemProps,
 } from '@ant-design/pro-components';
 import { useBoolean } from 'ahooks';
 import { history } from '@umijs/max';
@@ -17,8 +18,9 @@ import Detail from './detail';
 import Desc from './desc';
 
 export type FormTableColumnType<T = any> = ProColumnType<T> &
-  ProFormColumnsType<T> & {
-    customFieldProps?: (isAdd: boolean) => any;
+  ProFormColumnsType<T> &
+  ProDescriptionsItemProps<T, 'text'> & {
+    customFieldProps?: (isAdd: boolean, isDesc: boolean) => any;
     customProps?: (isAdd: boolean) => FormTableColumnType;
   };
 
@@ -54,8 +56,42 @@ interface FormTableProps<T> extends CommonFormTableProps<T> {
   ) => ReactNode[];
 }
 
+export function processColumns(columns: FormTableColumnsType, isAdd: boolean, isDesc: boolean) {
+  const convertCustomColumn = (column: FormTableColumnType): FormTableColumnType => {
+    let { customFieldProps, fieldProps = {}, customProps, ...extraColumn } = column;
+    if (customFieldProps) {
+      fieldProps = customFieldProps(isAdd, isDesc);
+    }
+
+    let newCustomProps = {};
+    if (customProps) {
+      newCustomProps = customProps(isAdd);
+    }
+    if (isDesc) {
+      return {
+        ...extraColumn,
+        ...fieldProps,
+        ...newCustomProps,
+      };
+    }
+    return {
+      ...extraColumn,
+      fieldProps,
+      ...newCustomProps,
+    };
+  };
+
+  return columns.map((column) => {
+    if (Array.isArray(column)) {
+      return column.map(convertCustomColumn);
+    } else {
+      return convertCustomColumn(column);
+    }
+  }) as FormTableColumnsType;
+}
+
 export default function FormTable<T extends Record<string, any>>(props: FormTableProps<T>) {
-  const {
+  let {
     columns = [],
     rowKey = 'id',
     moduleName = '',
