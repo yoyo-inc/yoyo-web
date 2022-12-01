@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Tag } from 'antd';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
@@ -24,8 +24,15 @@ export default function AuditLog() {
       title: '操作人',
       dataIndex: 'user',
       renderText(text: API.User) {
+        if (!text.nickname) {
+          return '';
+        }
         return `${text.nickname}(${text.username})`;
       },
+    },
+    {
+      title: '接入IP',
+      dataIndex: 'ip',
     },
     {
       title: '模块',
@@ -76,7 +83,7 @@ export default function AuditLog() {
     {
       title: '描述',
       dataIndex: 'detail',
-      width: 460,
+      width: 360,
       hideInSearch: true,
       ellipsis: true,
     },
@@ -88,8 +95,8 @@ export default function AuditLog() {
         moduleName="审计日志"
         columns={columns}
         actions={['desc']}
-        request={async () => {
-          return api.auditLog.getAuditLogs({}).then(transformPaginatedData);
+        request={async (params) => {
+          return api.auditLog.getAuditLogs({ ...params }).then(transformPaginatedData);
         }}
         customToolBarRender={() => []}
       ></FormTable>
