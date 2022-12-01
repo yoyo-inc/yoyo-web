@@ -93,6 +93,11 @@ declare namespace API {
     id: string;
   };
 
+  type deleteResourceIdParams = {
+    /** 参数 */
+    id: string;
+  };
+
   type deleteRoleRoleIDParams = {
     /** 参数 */
     roleID: string;
@@ -143,6 +148,10 @@ declare namespace API {
     current?: number;
     /** 每页大小 */
     pageSize?: number;
+  };
+
+  type getResourcesParams = {
+    filename?: string;
   };
 
   type getRolesParams = {
@@ -240,6 +249,19 @@ declare namespace API {
     type?: string;
   };
 
+  type Resource = {
+    /** 创建时间 */
+    createTime?: string;
+    filename?: string;
+    filesize?: number;
+    filetype?: string;
+    /** 主键 */
+    id?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    resourceName?: string;
+  };
+
   type Response = {
     code?: string;
     data?: any;
@@ -290,10 +312,11 @@ declare namespace API {
     description?: string;
     /** 主键 */
     id?: number;
-    logo?: string;
+    logo?: Resource;
     /** 更新时间 */
     modifyTime?: string;
     name?: string;
+    resourceID?: string;
   };
 
   type UpdateAlertAccessVO = {
@@ -315,10 +338,11 @@ declare namespace API {
     createTime?: string;
     description?: string;
     id: number;
-    logo?: string;
+    logo?: Resource;
     /** 更新时间 */
     modifyTime?: string;
     name?: string;
+    resourceID?: string;
   };
 
   type User = {

@@ -5,6 +5,7 @@
 import * as alert from './alert';
 import * as auditLog from './auditLog';
 import * as permissions from './permissions';
+import * as resource from './resource';
 import * as role from './role';
 import * as runLog from './runLog';
 import * as system from './system';
@@ -13,6 +14,7 @@ export default {
   alert,
   auditLog,
   permissions,
+  resource,
   role,
   runLog,
   system,
