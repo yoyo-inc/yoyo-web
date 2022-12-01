@@ -45,24 +45,42 @@ export default function AlertPush() {
       hideInSearch: true,
     },
     {
-      title: 'syslog配置',
-      dataIndex: 'syslog',
+      title: '推送配置',
+      dataIndex: 'config',
       hideInSearch: true,
       valueType: 'dependency',
       name: ['type'],
       render(dom, entity) {
-        if (entity.type !== 'syslog') {
+        if (entity.type === 'syslog') {
+          return (
+            <>
+              <Tag>网络类型:{entity.syslogNetwork}</Tag>
+              <Tag>地址:{entity.syslogAddr}</Tag>
+              <Tag>端口:{entity.syslogPort}</Tag>
+              <Tag>tag:{entity.syslogTag}</Tag>
+            </>
+          );
+        } else if (entity.type === 'kafka') {
+          return (
+            <>
+              <Tag>网络类型:{entity.kafkaNetwork}</Tag>
+              <Tag>地址:{entity.kafkaAddr}</Tag>
+              <Tag>端口:{entity.kafkaPort}</Tag>
+              <Tag>topic:{entity.kafkaTopic}</Tag>
+            </>
+          );
+        } else {
           return dom;
         }
-        return (
-          <>
-            <Tag>网络类型:{entity.syslogNetwork}</Tag>
-            <Tag>地址:{entity.syslogAddr}</Tag>
-            <Tag>端口:{entity.syslogPort}</Tag>
-            <Tag>tag:{entity.syslogTag}</Tag>
-          </>
-        );
       },
+    },
+    {
+      title: 'syslog配置',
+      dataIndex: 'syslog',
+      hideInSearch: true,
+      hideInTable: true,
+      valueType: 'dependency',
+      name: ['type'],
       columns: ({ type }) => {
         if (type === 'syslog') {
           return [
@@ -101,21 +119,9 @@ export default function AlertPush() {
       title: 'kafka配置',
       dataIndex: 'kafka',
       hideInSearch: true,
+      hideInTable: true,
       valueType: 'dependency',
       name: ['type'],
-      render(dom, entity) {
-        if (entity.type !== 'kafka') {
-          return dom;
-        }
-        return (
-          <>
-            <Tag>网络类型:{entity.kafkaNetwork}</Tag>
-            <Tag>地址:{entity.kafkaAddr}</Tag>
-            <Tag>端口:{entity.kafkaPort}</Tag>
-            <Tag>topic:{entity.kafkaTopic}</Tag>
-          </>
-        );
-      },
       columns: ({ type }) => {
         if (type === 'kafka') {
           return [
