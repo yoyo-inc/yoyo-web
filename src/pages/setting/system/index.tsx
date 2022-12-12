@@ -29,7 +29,7 @@ export default function SystemSetting() {
             name: systemSetting.logo.filename,
             url:
               systemSetting.logo.resourceName &&
-              '/api/static/' +
+              '/api/static/upload/' +
                 systemSetting.logo.resourceName +
                 '?token=' +
                 localStorage.getItem('token'),
@@ -49,14 +49,13 @@ export default function SystemSetting() {
           wrapperCol={{ span: 18 }}
           onFinish={async (values) => {
             const { logo, ...extraValues } = values;
-            if (!isEmpty(logo)) {
-              if (logo.response) {
-                extraValues['resourceID'] = logo[0]?.response.id;
+            if (!isEmpty(logo) && logo[0].status !== 'error') {
+              if (logo[0].response) {
+                extraValues['resourceID'] = logo[0]?.response.data.id;
               } else {
                 extraValues['resourceID'] = logo[0]?.uid;
               }
             }
-
             return api.system.putSystemSetting(extraValues).then((res) => {
               message.success('更新成功');
               return res.data;
@@ -70,13 +69,16 @@ export default function SystemSetting() {
             label="系统logo"
             name="logo"
             accept="image/png,image/jpg"
-            action="/api/resource"
+            action="/api/resource/upload/upload"
             max={1}
             fieldProps={{
               headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token') || '',
               },
               async onRemove(file) {
+                if (file.status !== 'done') {
+                  return true;
+                }
                 return api.resource.deleteResourceId({ id: file.uid }).then((res) => res.data);
               },
             }}
