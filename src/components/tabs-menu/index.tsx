@@ -18,8 +18,8 @@ export default function TabsMenu(props: TabsMenuProps) {
   const { commonPath, items, initialActiveKey } = props;
   const location = useLocation();
   const typeExp = new RegExp(commonPath + '/(?<type>.*)');
-  const type = typeExp.exec(location.pathname)?.groups?.type;
-  const [activeKey, setActiveKey] = useState(type || initialActiveKey);
+  const type = typeExp.exec(location.pathname)?.groups?.type || '';
+  const [activeKey, setActiveKey] = useState<string>(type || initialActiveKey);
 
   useEffect(() => {
     setActiveKey(type);
