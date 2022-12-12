@@ -49,6 +49,7 @@ export const request: RequestConfig = {
       // @ts-ignore
       if (error.info) {
         message.error(error.message);
+      } else if (error.response) {
       } else {
         message.error('服务异常');
       }
