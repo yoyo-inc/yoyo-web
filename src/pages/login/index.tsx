@@ -24,11 +24,15 @@ export default function Login() {
             data,
           }).then(async (res) => {
             localStorage.setItem('token', res.data.token);
-            const currentUser = await api.user.getUserCurrent({});
+            const [currentUser, currentPermissions] = await Promise.all([
+              api.user.getUserCurrent({}),
+              api.user.getUserCurrentPermissions(),
+            ]);
             flushSync(() => {
               setInitialState((initialState) => ({
                 ...initialState,
                 currentUser: currentUser.data,
+                currentPermissions: currentPermissions.data,
               }));
             });
             history.push('/');
