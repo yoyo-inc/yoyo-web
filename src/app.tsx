@@ -49,6 +49,7 @@ export const request: RequestConfig = {
       // @ts-ignore
       if (error.info) {
         message.error(error.message);
+        // @ts-ignore
       } else if (error.response) {
       } else {
         message.error('服务异常');
@@ -60,6 +61,7 @@ export const request: RequestConfig = {
 export type IInitialState = {
   currentUser?: API.User;
   systemSetting?: API.SystemSetting;
+  currentPermissions?: string[];
 };
 
 // 全局初始化数据配置，用于 Layout 用户信息和权限初始化
@@ -67,8 +69,14 @@ export type IInitialState = {
 export async function getInitialState(): Promise<IInitialState> {
   const initialState = {} as IInitialState;
   try {
-    initialState.systemSetting = (await api.system.getSystemSettings({})).data;
-    initialState.currentUser = (await api.user.getUserCurrent({})).data;
+    const [settings, currentUser, currentPermissions] = await Promise.all([
+      api.system.getSystemSettings(),
+      api.user.getUserCurrent(),
+      api.user.getUserCurrentPermissions(),
+    ]);
+    initialState.systemSetting = settings.data;
+    initialState.currentUser = currentUser.data;
+    initialState.currentPermissions = currentPermissions.data;
   } catch (e) {}
   return initialState;
 }

@@ -7,6 +7,7 @@ export default defineConfig({
   fastRefresh: true,
   antd: {},
   model: {},
+  access: {},
   initialState: {},
   request: {},
   layout: {},
