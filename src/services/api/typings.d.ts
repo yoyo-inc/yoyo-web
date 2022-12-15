@@ -93,6 +93,11 @@ declare namespace API {
     id: string;
   };
 
+  type deleteReportIdParams = {
+    /** 参数 */
+    id: string;
+  };
+
   type deleteResourceIdParams = {
     /** 参数 */
     id: string;
@@ -150,8 +155,14 @@ declare namespace API {
     pageSize?: number;
   };
 
+  type getResourceDownloadIdParams = {
+    /** 参数 */
+    id: string;
+  };
+
   type getResourcesParams = {
     filename?: string;
+    resourceType?: string;
   };
 
   type getRolesParams = {
@@ -232,6 +243,27 @@ declare namespace API {
     parentID?: number;
   };
 
+  type postResourceResourceTypeUploadParams = {
+    /** 资源类型 */
+    resourceType: string;
+  };
+
+  type Report = {
+    /** 创建时间 */
+    createTime?: string;
+    filename?: string;
+    filesize?: number;
+    filetype?: string;
+    /** 主键 */
+    id?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    reportStatus?: number;
+    reportType?: string;
+    resourceName?: string;
+    resourceType?: string;
+  };
+
   type ResolveAlertVO = {
     content?: string;
     /** 创建时间 */
@@ -260,6 +292,7 @@ declare namespace API {
     /** 更新时间 */
     modifyTime?: string;
     resourceName?: string;
+    resourceType?: string;
   };
 
   type Response = {
@@ -306,6 +339,19 @@ declare namespace API {
     modifyTime?: string;
   };
 
+  type SchedJob = {
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: number;
+    jobID?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    remark?: string;
+    spec?: string;
+    status?: number;
+  };
+
   type SystemSetting = {
     /** 创建时间 */
     createTime?: string;
@@ -331,6 +377,10 @@ declare namespace API {
     remark?: string;
     startAtField?: string;
     typeField?: string;
+  };
+
+  type UpdateSchedJobVO = {
+    id: number;
   };
 
   type UpdateSystemSettingVO = {
