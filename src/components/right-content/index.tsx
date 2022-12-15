@@ -6,10 +6,12 @@ import { AlertOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import api from '@/services/api';
 import { request } from '@umijs/max';
+import { clearToken } from '@/utils/token';
 
 export default function RightContent() {
   const { data: count } = useRequest(api.alert.getAlertCount, {
     defaultParams: {
+      //@ts-ignore
       status: 0,
     },
   });
@@ -22,7 +24,7 @@ export default function RightContent() {
         break;
       case 'logout':
         request('/logout').then(() => {
-          localStorage.removeItem('token');
+          clearToken();
           setInitialState((state) => ({
             ...state,
             currentUser: {} as API.User,
