@@ -3,11 +3,12 @@ import { message } from 'antd';
 import type { RequestConfig } from '@umijs/max';
 import { history } from '@umijs/max';
 import { QuestionCircleFilled } from '@ant-design/icons';
+import { ProPageHeader } from '@ant-design/pro-components';
 
-import logo from '@/assets/logo.png';
+import Logo from '@/components/logo';
 import RightContent from '@/components/right-content';
 import api from '@/services/api';
-import { ProPageHeader } from '@ant-design/pro-components';
+import { getToken } from './utils/token';
 
 const loginPath = '/login';
 
@@ -16,9 +17,9 @@ export const request: RequestConfig = {
   timeout: 60 * 1000,
   requestInterceptors: [
     (req: any) => {
-      const token = localStorage.getItem('token');
+      const token = getToken();
       if (token) {
-        req.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
+        req.headers.Authorization = 'Bearer ' + token;
       }
       return req;
     },
@@ -69,12 +70,12 @@ export type IInitialState = {
 export async function getInitialState(): Promise<IInitialState> {
   const initialState = {} as IInitialState;
   try {
-    const [settings, currentUser, currentPermissions] = await Promise.all([
-      api.system.getSystemSettings(),
+    const settings = await api.system.getSystemSettings();
+    initialState.systemSetting = settings.data;
+    const [currentUser, currentPermissions] = await Promise.all([
       api.user.getUserCurrent(),
       api.user.getUserCurrentPermissions(),
     ]);
-    initialState.systemSetting = settings.data;
     initialState.currentUser = currentUser.data;
     initialState.currentPermissions = currentPermissions.data;
   } catch (e) {}
@@ -83,7 +84,7 @@ export async function getInitialState(): Promise<IInitialState> {
 
 export const layout = ({ initialState }: { initialState: IInitialState }) => {
   return {
-    logo,
+    logo: <Logo />,
     title: initialState?.systemSetting?.name,
     layout: 'mix',
     menu: {
