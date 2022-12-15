@@ -13,6 +13,7 @@ import Page from '@/components/page';
 import api from '@/services/api';
 import { expand } from '@/utils';
 import styles from './index.less';
+import { getToken } from '@/utils/token';
 
 export default function SystemSetting() {
   const { data: systemSetting } = useRequest<API.IResponse<API.SystemSetting>>(
@@ -29,10 +30,7 @@ export default function SystemSetting() {
             name: systemSetting.logo.filename,
             url:
               systemSetting.logo.resourceName &&
-              '/api/static/upload/' +
-                systemSetting.logo.resourceName +
-                '?token=' +
-                localStorage.getItem('token'),
+              '/api/resource/upload/' + systemSetting.logo.resourceName + '?token=' + getToken(),
           },
         ];
       }
