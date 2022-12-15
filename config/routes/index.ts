@@ -1,3 +1,5 @@
+import { IRoute } from '@umijs/max';
+
 export default [
   {
     path: '/login',
@@ -120,14 +122,48 @@ export default [
         ],
       },
       {
+        path: '/setting/report',
+        component: 'setting/report',
+        name: '报告管理',
+        access: 'report',
+        routes: [
+          {
+            path: '/setting/report',
+            redirect: '/setting/report/list',
+          },
+          {
+            path: '/setting/report/list',
+            component: 'setting/report/list',
+            name: '报告列表',
+            access: 'report_list',
+            hideInMenu: true,
+          },
+          {
+            path: '/setting/report/config',
+            component: 'setting/report/config',
+            name: '报告配置',
+            access: 'report_config',
+            hideInMenu: true,
+          },
+        ],
+      },
+      {
+        path: '/setting/sched_job',
+        component: 'setting/sched_job',
+        name: '定时任务管理',
+        access: 'sched_job',
+      },
+      {
         path: '/setting/resource',
         component: 'setting/resource',
         name: '资源管理',
+        access: 'resource',
       },
       {
         path: '/setting/system',
         component: 'setting/system',
         name: '系统设置',
+        access: 'system',
       },
     ],
   },
