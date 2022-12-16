@@ -30,44 +30,58 @@ export default function SchedJob() {
       hideInSearch: true,
     },
     {
-      title: '是否启用',
+      title: '状态',
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: new Map([
         [
           0,
           {
-            text: '否',
+            text: '关闭',
           },
         ],
         [
           1,
           {
-            text: '是',
+            text: '启用',
           },
         ],
       ]),
     },
     {
+      title: '上次运行时间',
+      dataIndex: 'lastRunTime',
+      hideInSearch: true,
+    },
+    {
       title: '操作',
       dataIndex: 'operator',
       valueType: 'option',
+      width: 160,
       render(_, entity, index, actions) {
         return [
           <a
             onClick={() => {
-              api.schedJob.putSchedjobOpen({ id: entity.id }).then(() => {
-                actions?.reload();
-              });
+              api.schedJob
+                //@ts-ignore
+                .putSchedjobOpen({ id: entity.id })
+                .then(() => {
+                  actions?.reload();
+                })
+                .catch(() => {});
             }}
           >
             开启
           </a>,
           <a
             onClick={() => {
-              api.schedJob.putSchedjobClose({ id: entity.id }).then(() => {
-                actions?.reload();
-              });
+              api.schedJob
+                //@ts-ignore
+                .putSchedjobClose({ id: entity.id })
+                .then(() => {
+                  actions?.reload();
+                })
+                .catch(() => {});
             }}
           >
             关闭
