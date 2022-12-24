@@ -6,7 +6,7 @@ import { transformPaginatedData } from '@/utils';
 export default function Resource() {
   const columns: FormTableColumnsType<API.Resource> = [
     {
-      title: '上传时间',
+      title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       width: 220,
@@ -32,6 +32,14 @@ export default function Resource() {
       title: '文件大小(kb)',
       dataIndex: 'filesize',
       hideInSearch: true,
+    },
+    {
+      title: '类型',
+      dataIndex: 'resourceType',
+      valueType: 'select',
+      async request() {
+        return api.resource.getResourceTypes().then((res) => res.data);
+      },
     },
   ];
   return (
