@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import dayjs from 'dayjs';
+import { Button } from 'antd';
+import { BetaSchemaForm } from '@ant-design/pro-components';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
 import { transformPaginatedData } from '@/utils';
+import { DEFAULT_FORM_LAYOUT } from '@/components/form-table/detail';
 
 export default function ReportList() {
+  const [visible, setVisible] = useState(false);
+  const tableRef = useRef();
   const columns: FormTableColumnsType<API.Report> = [
     {
-      title: '创建时间',
+      title: '生成时间',
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
       width: 220,
@@ -21,35 +27,169 @@ export default function ReportList() {
     },
     {
       title: '报告名称',
-      dataIndex: 'name',
+      dataIndex: 'reportName',
     },
     {
       title: '报告类型',
-      dataIndex: 'type',
+      dataIndex: 'reportType',
+      valueType: 'select',
+      async request() {
+        return api.report.getReportTypes().then((res) => res.data);
+      },
     },
     {
       title: '报告大小(kb)',
-      dataIndex: 'size',
+      dataIndex: ['resource', 'filesize'],
       hideInSearch: true,
+    },
+    {
+      title: '生成状态',
+      dataIndex: 'reportStatus',
+      valueType: 'select',
+      valueEnum: new Map([
+        [
+          0,
+          {
+            text: '生成中',
+            status: 'processing',
+          },
+        ],
+        [
+          1,
+          {
+            text: '成功',
+            status: 'success',
+          },
+        ],
+        [
+          2,
+          {
+            text: '失败',
+            status: 'error',
+          },
+        ],
+      ]),
     },
     {
       title: '操作',
       dataIndex: 'operator',
       valueType: 'option',
       hideInSearch: true,
-      render() {
-        return [<a>下载</a>];
+      render(_, entity) {
+        return [
+          <a
+            style={{ display: entity.reportStatus === 1 ? 'block' : 'none' }}
+            onClick={() => {
+              window.open('/api/resource/download/' + entity?.resource?.id);
+            }}
+          >
+            下载
+          </a>,
+        ];
       },
     },
   ];
   return (
     <div>
       <FormTable
+        ref={tableRef}
+        actions={[]}
         columns={columns}
         request={async (params) => {
           return api.report.getReports(params).then(transformPaginatedData);
         }}
+        customToolBarRender={() => {
+          return [
+            <Button
+              type={'primary'}
+              onClick={() => {
+                setVisible(true);
+              }}
+            >
+              生成报告
+            </Button>,
+          ];
+        }}
       ></FormTable>
+      <GenerateReport
+        visible={visible}
+        onVisibleChange={setVisible}
+        onReload={() => {
+          console.log(tableRef.current);
+          tableRef.current?.reload();
+        }}
+      />
     </div>
+  );
+}
+
+interface GenerateReportProps {
+  visible: boolean;
+
+  onVisibleChange(value: boolean): void;
+
+  onReload(): void;
+}
+
+function GenerateReport(props: GenerateReportProps) {
+  const { onReload, ...extraProps } = props;
+  const columns = [
+    {
+      title: '时间',
+      dataIndex: 'time',
+      valueType: 'dateRange',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+          },
+        ],
+      },
+    },
+    {
+      title: '报告类型',
+      dataIndex: 'reportType',
+      valueType: 'select',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+          },
+        ],
+      },
+      async request() {
+        return api.report.getReportTypes().then((res) => res.data);
+      },
+    },
+    {
+      title: '报告名称',
+      dataIndex: 'reportName',
+    },
+  ];
+  return (
+    <BetaSchemaForm
+      title="生成报告"
+      columns={columns}
+      layoutType={'ModalForm'}
+      {...extraProps}
+      {...DEFAULT_FORM_LAYOUT}
+      layout="horizontal"
+      onFinish={async (values: any) => {
+        const startTime = dayjs(values.time[0]).startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        const endTime = dayjs(values.time[1]).endOf('day').format('YYYY-MM-DD HH:mm:ss');
+        await api.report.postReportGenerateReportType(
+          {
+            reportType: values.reportType,
+          },
+          {
+            startTime,
+            endTime,
+            reportName: values.reportName,
+          },
+        );
+        props.onReload();
+        return true;
+      }}
+    ></BetaSchemaForm>
   );
 }
