@@ -113,6 +113,25 @@ declare namespace API {
     userID: string;
   };
 
+  type Dict = {
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: number;
+    label?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    type?: string;
+    value?: string;
+    valueType?: string;
+  };
+
+  type GenerateReportVO = {
+    endTime: string;
+    reportName?: string;
+    startTime: string;
+  };
+
   type getAlertAccessesParams = {
     accessIP?: string;
     endTime?: string;
@@ -155,6 +174,13 @@ declare namespace API {
     pageSize?: number;
   };
 
+  type getReportsParams = {
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
+  };
+
   type getResourceDownloadIdParams = {
     /** 参数 */
     id: string;
@@ -174,6 +200,13 @@ declare namespace API {
 
   type getRunlogsParams = {
     filename?: string;
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
+  };
+
+  type getSchedjobsParams = {
     /** 页数 */
     current?: number;
     /** 每页大小 */
@@ -243,6 +276,11 @@ declare namespace API {
     parentID?: number;
   };
 
+  type postReportGenerateReportTypeParams = {
+    /** 报告类型 */
+    reportType: string;
+  };
+
   type postResourceResourceTypeUploadParams = {
     /** 资源类型 */
     resourceType: string;
@@ -251,17 +289,15 @@ declare namespace API {
   type Report = {
     /** 创建时间 */
     createTime?: string;
-    filename?: string;
-    filesize?: number;
-    filetype?: string;
     /** 主键 */
-    id?: string;
+    id?: number;
     /** 更新时间 */
     modifyTime?: string;
+    reportName?: string;
     reportStatus?: number;
     reportType?: string;
-    resourceName?: string;
-    resourceType?: string;
+    resource?: Resource;
+    resourceID?: string;
   };
 
   type ResolveAlertVO = {
@@ -342,14 +378,16 @@ declare namespace API {
   type SchedJob = {
     /** 创建时间 */
     createTime?: string;
+    description?: string;
     /** 主键 */
     id?: number;
     jobID?: string;
+    lastRunTime?: string;
     /** 更新时间 */
     modifyTime?: string;
-    remark?: string;
     spec?: string;
     status?: number;
+    type?: string;
   };
 
   type SystemSetting = {

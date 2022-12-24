@@ -32,12 +32,27 @@ export async function putSchedjobOpen(
   });
 }
 
+/** 查询定时任务类型 GET /schedjob/types */
+export async function getSchedjobTypes(options?: { [key: string]: any }) {
+  return request<API.Response & { data?: API.Dict[] }>('/schedjob/types', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 查询定时任务 GET /schedjobs */
-export async function getSchedjobs(options?: { [key: string]: any }) {
+export async function getSchedjobs(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getSchedjobsParams,
+  options?: { [key: string]: any },
+) {
   return request<API.Response & { data?: API.PaginatedData & { list?: API.SchedJob[] } }>(
     '/schedjobs',
     {
       method: 'GET',
+      params: {
+        ...params,
+      },
       ...(options || {}),
     },
   );

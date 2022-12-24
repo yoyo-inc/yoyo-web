@@ -65,6 +65,14 @@ export async function getResourceDownloadId(
   });
 }
 
+/** 查询资源类型 GET /resource/types */
+export async function getResourceTypes(options?: { [key: string]: any }) {
+  return request<API.Response & { data?: API.Dict[] }>('/resource/types', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
 /** 查询资源文件列表 GET /resources */
 export async function getResources(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
