@@ -1,4 +1,12 @@
-import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  ReactNode,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   ActionType,
   ProColumnType,
@@ -90,7 +98,7 @@ export function processColumns(columns: FormTableColumnsType, isAdd: boolean, is
   }) as FormTableColumnsType;
 }
 
-export default function FormTable<T extends Record<string, any>>(props: FormTableProps<T>) {
+function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref) {
   let {
     columns = [],
     rowKey = 'id',
@@ -215,6 +223,12 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
     }
   }, [visible]);
 
+  useImperativeHandle(ref, () => {
+    return {
+      ...tableRef.current,
+    };
+  });
+
   return (
     <div>
       <ProTable
@@ -269,3 +283,5 @@ export default function FormTable<T extends Record<string, any>>(props: FormTabl
     </div>
   );
 }
+
+export default forwardRef(FormTable);
