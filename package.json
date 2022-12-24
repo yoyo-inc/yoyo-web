@@ -23,6 +23,8 @@
     "@umijs/max": "4.0.36",
     "ahooks": "^3.7.1",
     "antd": "4.23.5",
+    "dayjs": "^1.11.7",
+    "downloadjs": "^1.4.7",
     "lodash": "^4.17.21",
     "reconnecting-websocket": "^4.4.0"
   },
