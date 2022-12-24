@@ -2,6 +2,7 @@ import React from 'react';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
 import { transformPaginatedData } from '@/utils';
+import { Button } from 'antd';
 
 export default function SchedJob() {
   const columns: FormTableColumnsType<API.SchedJob> = [
@@ -17,6 +18,14 @@ export default function SchedJob() {
       },
       render(_: any, entity) {
         return entity.createTime;
+      },
+    },
+    {
+      title: '任务类型',
+      dataIndex: 'type',
+      valueType: 'select',
+      async request() {
+        return api.schedJob.getSchedjobTypes().then((res) => res.data);
       },
     },
     {
@@ -38,12 +47,14 @@ export default function SchedJob() {
           0,
           {
             text: '关闭',
+            status: 'default',
           },
         ],
         [
           1,
           {
             text: '启用',
+            status: 'success',
           },
         ],
       ]),
@@ -96,7 +107,7 @@ export default function SchedJob() {
         actions={[]}
         columns={columns}
         request={async (params) => {
-          return api.schedJob.getSchedjobs().then(transformPaginatedData);
+          return api.schedJob.getSchedjobs(params).then(transformPaginatedData);
         }}
       ></FormTable>
     </div>
