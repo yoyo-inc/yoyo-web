@@ -115,7 +115,6 @@ export default function ReportList() {
         visible={visible}
         onVisibleChange={setVisible}
         onReload={() => {
-          console.log(tableRef.current);
           tableRef.current?.reload();
         }}
       />
