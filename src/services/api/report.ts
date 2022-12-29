@@ -16,6 +16,29 @@ export async function deleteReportId(
   });
 }
 
+/** 查询报告设置 GET /report/config */
+export async function getReportConfig(options?: { [key: string]: any }) {
+  return request<API.Response & { data?: API.ReportConfig }>('/report/config', {
+    method: 'GET',
+    ...(options || {}),
+  });
+}
+
+/** 更换报告设置 PUT /report/config */
+export async function putReportConfig(
+  body: API.UpdateReportConfigVo,
+  options?: { [key: string]: any },
+) {
+  return request<API.Response & { data?: boolean }>('/report/config', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 生成报告 POST /report/generate/${param0} */
 export async function postReportGenerateReportType(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)

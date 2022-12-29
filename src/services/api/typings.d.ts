@@ -11,7 +11,6 @@ declare namespace API {
     modifyTime?: string;
     remark?: string;
     resolvedStatus?: number;
-    /** 更新时间 */
     startAt?: string;
     status?: number;
     type?: string;
@@ -156,7 +155,6 @@ declare namespace API {
     modifyTime?: string;
     remark?: string;
     resolvedStatus?: number;
-    /** 更新时间 */
     startAt?: string;
     startTime?: string;
     status?: number;
@@ -300,6 +298,18 @@ declare namespace API {
     resourceID?: string;
   };
 
+  type ReportConfig = {
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    period?: string[];
+    reportName?: string;
+    reportType?: string[];
+  };
+
   type ResolveAlertVO = {
     content?: string;
     /** 创建时间 */
@@ -311,7 +321,6 @@ declare namespace API {
     modifyTime?: string;
     remark?: string;
     resolvedStatus?: number;
-    /** 更新时间 */
     startAt?: string;
     status?: number;
     type?: string;
@@ -417,6 +426,18 @@ declare namespace API {
     typeField?: string;
   };
 
+  type UpdateReportConfigVo = {
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: string;
+    /** 更新时间 */
+    modifyTime?: string;
+    period?: string[];
+    reportName?: string;
+    reportType?: string[];
+  };
+
   type UpdateSchedJobVO = {
     id: number;
   };
@@ -448,6 +469,7 @@ declare namespace API {
     modifyTime?: string;
     /** 昵称 */
     nickname?: string;
+    /** 组织 */
     organization?: Organization;
     /** 组织ID */
     organizationID?: number;
@@ -478,6 +500,7 @@ declare namespace API {
     modifyTime?: string;
     /** 昵称 */
     nickname?: string;
+    /** 组织 */
     organization?: Organization;
     /** 组织ID */
     organizationID?: number;
