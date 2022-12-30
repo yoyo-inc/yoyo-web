@@ -160,6 +160,12 @@ export default [
         access: 'resource',
       },
       {
+        path: '/setting/dict',
+        component: 'setting/dict',
+        name: '字典管理',
+        access: 'dict',
+      },
+      {
         path: '/setting/system',
         component: 'setting/system',
         name: '系统设置',
