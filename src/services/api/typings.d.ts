@@ -172,6 +172,13 @@ declare namespace API {
     pageSize?: number;
   };
 
+  type getDictsParams = {
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
+  };
+
   type getReportsParams = {
     /** 页数 */
     current?: number;
@@ -306,7 +313,6 @@ declare namespace API {
     /** 更新时间 */
     modifyTime?: string;
     period?: string[];
-    reportName?: string;
     reportType?: string[];
   };
 
@@ -434,7 +440,6 @@ declare namespace API {
     /** 更新时间 */
     modifyTime?: string;
     period?: string[];
-    reportName?: string;
     reportType?: string[];
   };
 
