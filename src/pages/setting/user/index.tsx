@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import api from '@/services/api';
-import { transformPaginatedData } from '@/utils';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import { request } from '@umijs/max';
+import { transformPaginatedData } from '@/utils';
 
 export default function User() {
   const columns: FormTableColumnsType<API.User> = [
@@ -19,6 +19,7 @@ export default function User() {
       render(_: any, entity) {
         return entity.createTime;
       },
+      hideInForm: true,
     },
     {
       dataIndex: 'id',
@@ -114,9 +115,8 @@ export default function User() {
   ];
   return (
     <div>
-      <FormTable<API.User>
+      <FormTable
         columns={columns}
-        rowKey={'id'}
         moduleName="用户"
         transformDetail={(detail) => {
           const newDetail = { ...detail };
