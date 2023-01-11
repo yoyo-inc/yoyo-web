@@ -18,18 +18,38 @@ export default function Dict() {
       render(_: any, entity) {
         return entity.createTime;
       },
+      hideInForm: true,
     },
     {
       title: '分类',
       dataIndex: 'type',
     },
+    {
+      title: '标签',
+      dataIndex: 'label',
+      hideInSearch: true,
+    },
+    {
+      title: '值',
+      dataIndex: 'value',
+      hideInSearch: true,
+    },
+    {
+      title: '值类型',
+      dataIndex: 'valueType',
+      valueEnum: {
+        string: '字符串',
+        integer: '整数',
+      },
+      hideInSearch: true,
+    },
   ];
   return (
     <div>
       <FormTable
-        actions={[]}
+        actions={['edit']}
         columns={columns}
-        request={async (params) => api.dict.getDicts(parmas).then(transformPaginatedData)}
+        request={async (params) => api.dict.getDicts(params).then(transformPaginatedData)}
       ></FormTable>
     </div>
   );
