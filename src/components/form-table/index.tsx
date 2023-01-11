@@ -62,6 +62,7 @@ interface FormTableProps<T> extends CommonFormTableProps<T> {
       selectedRows?: T[];
     },
   ) => ReactNode[];
+  showDelete: (entity: T) => boolean;
 }
 
 export function processColumns(columns: FormTableColumnsType, isAdd: boolean, isDesc: boolean) {
@@ -113,6 +114,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
     transformDetail,
     grid,
     actions = ['edit', 'delete', 'add'],
+    showDelete,
   } = props;
   const [visible, { set: setVisible }] = useBoolean(false);
   const [detail, setDetail] = useState<T>();
@@ -156,6 +158,9 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
         (column: any) => column.dataIndex === 'operator' && column.valueType === 'option',
       )
     ) {
+      if (!showDelete) {
+        showDelete = () => true;
+      }
       newColumns.push({
         title: '操作',
         valueType: 'option',
@@ -177,7 +182,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
                 编辑
               </a>
             ),
-            actions.includes('delete') && (
+            actions.includes('delete') && showDelete(entity) && (
               <Popconfirm
                 key="delete"
                 title="确定删除?"
