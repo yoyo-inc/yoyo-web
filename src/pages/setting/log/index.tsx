@@ -13,18 +13,18 @@ export default function Log() {
             key: 'audit_log',
             label: '审计日志',
           },
-          {
-            key: 'security_log',
-            label: '安全日志',
-          },
+          // {
+          //   key: 'security_log',
+          //   label: '安全日志',
+          // },
           {
             key: 'run_log',
             label: '运行日志',
           },
-          // {
-          //   key: 'log_config',
-          //   label: '日志设置',
-          // },
+          {
+            key: 'log_config',
+            label: '日志设置',
+          },
         ]}
       />
     </Page>
