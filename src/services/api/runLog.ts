@@ -8,7 +8,7 @@ export async function getRunlogs(
   params: API.getRunlogsParams,
   options?: { [key: string]: any },
 ) {
-  return request<API.Response & { data?: API.PaginatedData & { list?: API.RunLog[] } }>(
+  return request<API.Response & { data?: API.PaginatedData & { list?: Record<string, any>[] } }>(
     '/runlogs',
     {
       method: 'GET',

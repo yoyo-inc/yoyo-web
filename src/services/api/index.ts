@@ -5,6 +5,7 @@
 import * as alert from './alert';
 import * as auditLog from './auditLog';
 import * as dict from './dict';
+import * as logConfig from './logConfig';
 import * as permissions from './permissions';
 import * as report from './report';
 import * as resource from './resource';
@@ -17,6 +18,7 @@ export default {
   alert,
   auditLog,
   dict,
+  logConfig,
   permissions,
   report,
   resource,

@@ -97,11 +97,18 @@ export async function getAlertCount(
 }
 
 /** 查询告警推送设置 GET /alert/push */
-export async function getAlertPush(options?: { [key: string]: any }) {
+export async function getAlertPush(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getAlertPushParams,
+  options?: { [key: string]: any },
+) {
   return request<API.Response & { data?: API.PaginatedData & { data?: API.AlertPush } }>(
     '/alert/push',
     {
       method: 'GET',
+      params: {
+        ...params,
+      },
       ...(options || {}),
     },
   );

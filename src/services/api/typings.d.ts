@@ -115,6 +115,7 @@ declare namespace API {
   type Dict = {
     /** 创建时间 */
     createTime?: string;
+    desc?: string;
     /** 主键 */
     id?: number;
     label?: string;
@@ -133,8 +134,12 @@ declare namespace API {
 
   type getAlertAccessesParams = {
     accessIP?: string;
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
     endTime?: string;
-    startTime?: string;
+    starTime?: string;
   };
 
   type getAlertCountParams = {
@@ -142,11 +147,15 @@ declare namespace API {
     status?: number;
   };
 
+  type getAlertPushParams = {
+    endTime?: string;
+    starTime?: string;
+  };
+
   type getAlertsParams = {
     content?: string;
     /** 创建时间 */
     createTime?: string;
-    endTime?: string;
     from?: string;
     /** 主键 */
     id?: number;
@@ -156,13 +165,14 @@ declare namespace API {
     remark?: string;
     resolvedStatus?: number;
     startAt?: string;
-    startTime?: string;
     status?: number;
     type?: string;
     /** 页数 */
     current?: number;
     /** 每页大小 */
     pageSize?: number;
+    endTime?: string;
+    starTime?: string;
   };
 
   type getAuditLogsParams = {
@@ -184,6 +194,9 @@ declare namespace API {
     current?: number;
     /** 每页大小 */
     pageSize?: number;
+    filename?: string;
+    reportStatus?: string;
+    reportType?: string;
   };
 
   type getResourceDownloadIdParams = {
@@ -204,7 +217,6 @@ declare namespace API {
   };
 
   type getRunlogsParams = {
-    filename?: string;
     /** 页数 */
     current?: number;
     /** 每页大小 */
@@ -227,6 +239,16 @@ declare namespace API {
     current?: number;
     /** 每页大小 */
     pageSize?: number;
+  };
+
+  type LogConfig = {
+    /** 创建时间 */
+    createTime?: string;
+    /** 主键 */
+    id?: string;
+    keepTime?: number;
+    /** 更新时间 */
+    modifyTime?: string;
   };
 
   type Organization = {
@@ -377,17 +399,6 @@ declare namespace API {
     name: string;
     permissions?: number[];
     remark?: string;
-  };
-
-  type RunLog = {
-    /** 创建时间 */
-    createTime?: string;
-    filename?: string;
-    filesize?: string;
-    /** 主键 */
-    id?: number;
-    /** 更新时间 */
-    modifyTime?: string;
   };
 
   type SchedJob = {
