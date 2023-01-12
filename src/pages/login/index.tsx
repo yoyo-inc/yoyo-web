@@ -9,7 +9,7 @@ import Logo from '@/components/logo';
 import styles from './index.less';
 import api from '@/services/api';
 import backgroundImage from '@/assets/background.png';
-import { getToken } from '@/utils/token';
+import { getToken } from '@/utils';
 
 export default function Login() {
   const { initialState, setInitialState } = useModel('@@initialState');
