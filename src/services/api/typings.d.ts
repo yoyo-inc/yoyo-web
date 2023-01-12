@@ -180,6 +180,8 @@ declare namespace API {
     current?: number;
     /** 每页大小 */
     pageSize?: number;
+    module?: string;
+    status?: number;
   };
 
   type getDictsParams = {
@@ -214,6 +216,11 @@ declare namespace API {
     default?: boolean;
     /** 角色名 */
     name?: string;
+  };
+
+  type getRunlogDownloadParams = {
+    filename: string;
+    service: string;
   };
 
   type getRunlogsParams = {
@@ -405,6 +412,7 @@ declare namespace API {
   type RunLogVO = {
     date?: string;
     filename?: string;
+    filesize?: string;
     service?: string;
   };
 
