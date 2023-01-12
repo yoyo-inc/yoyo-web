@@ -21,6 +21,7 @@ export default function RightContent() {
       case 'personal':
         break;
       case 'system':
+        history.push('/setting/system');
         break;
       case 'logout':
         request('/logout').then(() => {
@@ -38,10 +39,10 @@ export default function RightContent() {
     <Menu
       onClick={onMenuClick}
       items={[
-        {
-          key: 'personal',
-          label: '个人设置',
-        },
+        // {
+        //   key: 'personal',
+        //   label: '个人设置',
+        // },
         {
           key: 'system',
           label: '系统设置',
