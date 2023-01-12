@@ -71,32 +71,36 @@ export default function SchedJob() {
       width: 160,
       render(_, entity, index, actions) {
         return [
-          <a
-            onClick={() => {
-              api.schedJob
-                //@ts-ignore
-                .putSchedjobOpen({ id: entity.id })
-                .then(() => {
-                  actions?.reload();
-                })
-                .catch(() => {});
-            }}
-          >
-            开启
-          </a>,
-          <a
-            onClick={() => {
-              api.schedJob
-                //@ts-ignore
-                .putSchedjobClose({ id: entity.id })
-                .then(() => {
-                  actions?.reload();
-                })
-                .catch(() => {});
-            }}
-          >
-            关闭
-          </a>,
+          !entity.status && (
+            <a
+              onClick={() => {
+                api.schedJob
+                  //@ts-ignore
+                  .putSchedjobOpen({ id: entity.id })
+                  .then(() => {
+                    actions?.reload();
+                  })
+                  .catch(() => {});
+              }}
+            >
+              开启
+            </a>
+          ),
+          entity.status === 1 && (
+            <a
+              onClick={() => {
+                api.schedJob
+                  //@ts-ignore
+                  .putSchedjobClose({ id: entity.id })
+                  .then(() => {
+                    actions?.reload();
+                  })
+                  .catch(() => {});
+              }}
+            >
+              关闭
+            </a>
+          ),
         ];
       },
     },
