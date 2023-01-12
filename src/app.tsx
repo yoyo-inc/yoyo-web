@@ -52,6 +52,11 @@ export const request: RequestConfig = {
         message.error(error.message);
         // @ts-ignore
       } else if (error.response) {
+        // @ts-ignore
+        if (error.response.status === 400) {
+          // @ts-ignore
+          message.error(error.response.data.message);
+        }
       } else {
         message.error('服务异常');
       }
