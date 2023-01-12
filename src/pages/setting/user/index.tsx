@@ -148,6 +148,12 @@ export default function User() {
             });
           }
         }}
+        onDelete={async (userID) => {
+          return api.user.deleteUserUserID({ userID }).then((res) => res.data);
+        }}
+        showDelete={(entity) => {
+          entity.username !== 'admin';
+        }}
       />
     </div>
   );
