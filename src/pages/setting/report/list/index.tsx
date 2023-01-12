@@ -4,7 +4,7 @@ import { Button } from 'antd';
 import { BetaSchemaForm } from '@ant-design/pro-components';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
-import { transformPaginatedData } from '@/utils';
+import { transformPaginatedData, getToken } from '@/utils';
 import { DEFAULT_FORM_LAYOUT } from '@/components/form-table/detail';
 
 export default function ReportList() {
@@ -80,7 +80,9 @@ export default function ReportList() {
           <a
             style={{ display: entity.reportStatus === 1 ? 'block' : 'none' }}
             onClick={() => {
-              window.open('/api/resource/download/' + entity?.resource?.id);
+              window.open(
+                '/api/resource/download/' + entity?.resource?.id + '?token=' + getToken(),
+              );
             }}
           >
             下载
