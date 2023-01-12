@@ -115,7 +115,7 @@ declare namespace API {
   type Dict = {
     /** 创建时间 */
     createTime?: string;
-    desc?: string;
+    description?: string;
     /** 主键 */
     id?: number;
     label?: string;
@@ -242,6 +242,7 @@ declare namespace API {
   };
 
   type LogConfig = {
+    archive?: boolean;
     /** 创建时间 */
     createTime?: string;
     /** 主键 */
@@ -399,6 +400,12 @@ declare namespace API {
     name: string;
     permissions?: number[];
     remark?: string;
+  };
+
+  type RunLogVO = {
+    date?: string;
+    filename?: string;
+    service?: string;
   };
 
   type SchedJob = {
