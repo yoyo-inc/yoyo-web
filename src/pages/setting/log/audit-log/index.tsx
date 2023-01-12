@@ -23,6 +23,7 @@ export default function AuditLog() {
     {
       title: '操作人',
       dataIndex: 'user',
+      width: 120,
       renderText(text: API.User) {
         if (!text.nickname) {
           return '';
