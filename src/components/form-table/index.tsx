@@ -62,7 +62,7 @@ interface FormTableProps<T> extends CommonFormTableProps<T> {
       selectedRows?: T[];
     },
   ) => ReactNode[];
-  showDelete: (entity: T) => boolean;
+  showDelete?: (entity: T) => boolean;
 }
 
 export function processColumns(columns: FormTableColumnsType, isAdd: boolean, isDesc: boolean) {
