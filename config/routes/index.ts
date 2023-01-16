@@ -42,6 +42,12 @@ export default [
         access: 'user',
       },
       {
+        path: '/setting/security',
+        component: 'setting/security',
+        name: '登录安全',
+        access: 'security',
+      },
+      {
         path: '/setting/log',
         component: 'setting/log',
         name: '日志管理',
