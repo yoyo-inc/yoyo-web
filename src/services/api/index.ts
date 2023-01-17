@@ -10,7 +10,6 @@ import * as permissions from './permissions';
 import * as report from './report';
 import * as resource from './resource';
 import * as role from './role';
-import * as runlog from './runlog';
 import * as runLog from './runLog';
 import * as schedJob from './schedJob';
 import * as system from './system';
@@ -24,7 +23,6 @@ export default {
   report,
   resource,
   role,
-  runlog,
   runLog,
   schedJob,
   system,
