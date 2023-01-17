@@ -73,13 +73,14 @@ export default function AlertConfig() {
             {
               label: '站内信',
               value: 'station',
+              disabled: true,
             },
             {
               label: '邮件',
               value: 'email',
             },
           ]}
-          initialValue={['station', 'email']}
+          initialValue={['station']}
         ></ProFormCheckbox.Group>
         <ProFormDependency name={['types']}>
           {({ types }) => {
