@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, history } from '@umijs/max';
 import { Tabs } from 'antd';
-import { Outlet } from '@umijs/max';
+import { Outlet, useAccess } from '@umijs/max';
 
 export interface TabsMenuItem {
   key: string;
@@ -20,6 +20,7 @@ export default function TabsMenu(props: TabsMenuProps) {
   const typeExp = new RegExp(commonPath + '/(?<type>.*)');
   const type = typeExp.exec(location.pathname)?.groups?.type || '';
   const [activeKey, setActiveKey] = useState<string>(type || initialActiveKey);
+  const accesses = useAccess();
 
   useEffect(() => {
     setActiveKey(type);
@@ -35,10 +36,12 @@ export default function TabsMenu(props: TabsMenuProps) {
           setActiveKey(key);
           history.push(`${commonPath}/${key}`);
         }}
-        items={items.map((item) => ({
-          ...item,
-          children: <Outlet />,
-        }))}
+        items={items
+          .filter((item) => accesses[item.key])
+          .map((item) => ({
+            ...item,
+            children: <Outlet />,
+          }))}
       ></Tabs>
     </div>
   );
