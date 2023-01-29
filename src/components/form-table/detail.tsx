@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useMemo } from 'react';
 import { Drawer } from 'antd';
 import { BetaSchemaForm, ProFormInstance } from '@ant-design/pro-components';
-import { CommonFormTableProps, FormTableColumnsType, FormTableColumnType, processColumns } from '.';
+import { CommonFormTableProps, processColumns } from '.';
 
 export const DEFAULT_FORM_LAYOUT = {
   labelCol: {
