@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import { Drawer } from 'antd';
 import { BetaSchemaForm, ProFormInstance } from '@ant-design/pro-components';
 import { CommonFormTableProps, FormTableColumnsType, FormTableColumnType, processColumns } from '.';
@@ -26,7 +26,7 @@ export default function FormTableDetail<T extends Record<string, any>>(
 ) {
   let {
     detail = {} as T,
-    isAdd = true,
+    isAdd = false,
     columns,
     onFinish,
     visible,
@@ -48,7 +48,7 @@ export default function FormTableDetail<T extends Record<string, any>>(
     onVisibleChange(false);
   };
 
-  columns = processColumns(columns, true, false);
+  columns = useMemo(() => processColumns(columns, isAdd, false), [columns, isAdd]);
 
   useEffect(() => {
     if (visible && !isAdd) {

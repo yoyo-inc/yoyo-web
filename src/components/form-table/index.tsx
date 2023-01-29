@@ -77,6 +77,7 @@ export function processColumns(columns: FormTableColumnsType, isAdd: boolean, is
       newCustomProps = customProps(isAdd);
     }
     if (isDesc) {
+      //@ts-ignore
       return {
         ...extraColumn,
         ...fieldProps,
@@ -120,7 +121,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
   const [detail, setDetail] = useState<T>();
   const [openDesc, { set: setOpenDesc }] = useBoolean(false);
   const [desc, setDesc] = useState<T | undefined>();
-  const [isAdd, { set: setIsAdd }] = useBoolean(true);
+  const [isAdd, { set: setIsAdd }] = useBoolean(undefined);
   const tableRef = useRef<ActionType>();
   const formRef = useRef<FormInstance>();
 
@@ -182,7 +183,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
                 编辑
               </a>
             ),
-            actions.includes('delete') && showDelete(entity) && (
+            actions.includes('delete') && !!showDelete && showDelete(entity) && (
               <Popconfirm
                 key="delete"
                 title="确定删除?"
@@ -225,6 +226,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
   useEffect(() => {
     if (!visible) {
       setDetail(undefined);
+      setIsAdd(false);
     }
   }, [visible]);
 
