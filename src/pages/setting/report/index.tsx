@@ -10,11 +10,11 @@ export default function Report() {
         initialActiveKey="list"
         items={[
           {
-            key: 'list',
+            key: 'report_list',
             label: '报告列表',
           },
           {
-            key: 'config',
+            key: 'report_config',
             label: '报告设置',
           },
         ]}

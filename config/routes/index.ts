@@ -95,31 +95,31 @@ export default [
         routes: [
           {
             path: '/setting/alert',
-            redirect: '/setting/alert/list',
+            redirect: '/setting/alert/alert_list',
           },
           {
-            path: '/setting/alert/list',
+            path: '/setting/alert/alert_list',
             component: 'setting/alert/list',
             name: '告警列表',
             access: 'alert_list',
             hideInMenu: true,
           },
           {
-            path: '/setting/alert/config',
+            path: '/setting/alert/alert_config',
             component: 'setting/alert/alert-config',
             name: '告警配置',
             access: 'alert_config',
             hideInMenu: true,
           },
           {
-            path: '/setting/alert/access',
+            path: '/setting/alert/alert_access',
             component: 'setting/alert/alert-access',
             name: '告警接入',
             access: 'alert_access',
             hideInMenu: true,
           },
           {
-            path: '/setting/alert/push',
+            path: '/setting/alert/alert_push',
             component: 'setting/alert/alert-push',
             name: '告警推送',
             access: 'alert_push',
@@ -135,17 +135,17 @@ export default [
         routes: [
           {
             path: '/setting/report',
-            redirect: '/setting/report/list',
+            redirect: '/setting/report/report_list',
           },
           {
-            path: '/setting/report/list',
+            path: '/setting/report/report_list',
             component: 'setting/report/list',
             name: '报告列表',
             access: 'report_list',
             hideInMenu: true,
           },
           {
-            path: '/setting/report/config',
+            path: '/setting/report/report_config',
             component: 'setting/report/config',
             name: '报告配置',
             access: 'report_config',
