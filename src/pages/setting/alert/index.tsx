@@ -9,23 +9,23 @@ export default function Alert() {
         commonPath="/setting/alert"
         items={[
           {
-            key: 'list',
+            key: 'alert_list',
             label: '告警列表',
           },
           {
-            key: 'config',
+            key: 'alert_config',
             label: '告警配置',
           },
           {
-            key: 'access',
+            key: 'alert_access',
             label: '告警接入',
           },
           {
-            key: 'push',
+            key: 'alert_push',
             label: '告警推送',
           },
         ]}
-        initialActiveKey="list"
+        initialActiveKey="alert_list"
       />
     </Page>
   );

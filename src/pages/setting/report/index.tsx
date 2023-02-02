@@ -7,7 +7,7 @@ export default function Report() {
     <Page>
       <TabsMenu
         commonPath="/setting/report"
-        initialActiveKey="list"
+        initialActiveKey="report_list"
         items={[
           {
             key: 'report_list',
