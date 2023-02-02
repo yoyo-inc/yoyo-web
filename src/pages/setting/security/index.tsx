@@ -6,6 +6,7 @@ import {
   ProFormDigit,
   EditableProTable,
   ProFormInstance,
+  ProFormText,
 } from '@ant-design/pro-components';
 import Page from '@/components/page';
 import FormPanel from '@/components/form-panel';
@@ -28,7 +29,11 @@ export default function SystemSecurity() {
           layout="horizontal"
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 18 }}
+          onFinish={async (values) => {
+            return api.systemSecurity.putSystemSecurity(values).then((res) => res.data);
+          }}
         >
+          <ProFormText name="id" label="ID" hidden></ProFormText>
           <ProFormSwitch name="forbidRepeatLogin" label="禁止重复登录"></ProFormSwitch>
           <ProFormSwitch name="loginExpireEnable" label="登录过期"></ProFormSwitch>
           <ProFormDependency name={['loginExpireEnable']}>
