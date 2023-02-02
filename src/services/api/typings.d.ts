@@ -431,6 +431,34 @@ declare namespace API {
     type?: string;
   };
 
+  type SystemSecurity = {
+    /** 创建时间 */
+    createTime?: string;
+    forbidRepeatLogin?: boolean;
+    /** 主键 */
+    id?: number;
+    loginExpireEnable?: boolean;
+    loginExpireTime?: number;
+    loginIPWhitelist?: Record<string, any>[];
+    loginIPWhitelistEnable?: boolean;
+    /** 更新时间 */
+    modifyTime?: string;
+  };
+
+  type SystemSecurityVO = {
+    /** 创建时间 */
+    createTime?: string;
+    forbidRepeatLogin?: boolean;
+    /** 主键 */
+    id?: number;
+    loginExpireEnable?: boolean;
+    loginExpireTime?: number;
+    loginIPWhitelist?: Record<string, any>[];
+    loginIPWhitelistEnable?: boolean;
+    /** 更新时间 */
+    modifyTime?: string;
+  };
+
   type SystemSetting = {
     /** 创建时间 */
     createTime?: string;

@@ -13,6 +13,7 @@ import * as role from './role';
 import * as runLog from './runLog';
 import * as schedJob from './schedJob';
 import * as system from './system';
+import * as systemSecurity from './systemSecurity';
 import * as user from './user';
 export default {
   alert,
@@ -26,5 +27,6 @@ export default {
   runLog,
   schedJob,
   system,
+  systemSecurity,
   user,
 };
