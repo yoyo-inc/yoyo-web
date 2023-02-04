@@ -82,7 +82,7 @@ export default function Login() {
           <ProFormCheckbox noStyle name={'autoLogin'}>
             自动登录
           </ProFormCheckbox>
-          <a className={styles.forgotPassword}>忘记密码</a>
+          {/* <a className={styles.forgotPassword}>忘记密码</a> */}
         </div>
       </LoginFormPage>
     </div>
