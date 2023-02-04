@@ -44,7 +44,7 @@ export default [
       {
         path: '/setting/security',
         component: 'setting/security',
-        name: '登录安全',
+        name: '系统安全',
         access: 'security',
       },
       {
