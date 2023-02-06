@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ProForm,
   ProFormSwitch,
@@ -16,6 +16,7 @@ import { expand } from '@/utils';
 
 export default function SystemSecurity() {
   const formRef = useRef<ProFormInstance>();
+  const [editableKeys, setEditableKeys] = useState<string[]>([]);
   useEffect(() => {
     api.systemSecurity.getSystemSecurity().then((res) => {
       formRef.current?.setFields(expand(res.data));
@@ -46,6 +47,12 @@ export default function SystemSecurity() {
                   name={'loginExpireTime'}
                   label="过期时间"
                   addonAfter="分钟"
+                  rules={[
+                    {
+                      required: true,
+                    },
+                  ]}
+                  initialValue={1440}
                 ></ProFormDigit>
               );
             }}
@@ -81,7 +88,18 @@ export default function SystemSecurity() {
                         title: 'IP',
                         dataIndex: 'ip',
                       },
+                      { title: '操作', valueType: 'option', width: 60 },
                     ]}
+                    editable={{
+                      type: 'multiple',
+                      editableKeys: editableKeys,
+                      actionRender(row: any, _, defaultDOM) {
+                        return [defaultDOM.delete];
+                      },
+                      onChange(editableKeys) {
+                        setEditableKeys(editableKeys as string[]);
+                      },
+                    }}
                     recordCreatorProps={{
                       record(index) {
                         return { id: index + 1, enable: true };
