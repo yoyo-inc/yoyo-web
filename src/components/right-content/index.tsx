@@ -64,7 +64,7 @@ export default function RightContent() {
           <Badge count={count}>
             <AlertOutlined
               onClick={() => {
-                history.push('/setting/alert/list?status=0');
+                history.push('/setting/alert/alert_list?status=0');
               }}
             />
           </Badge>
