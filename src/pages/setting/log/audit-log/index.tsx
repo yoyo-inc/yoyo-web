@@ -31,7 +31,7 @@ export default function AuditLog() {
         return `${text.nickname}(${text.username})`;
       },
       valueType: 'select',
-      request() {
+      async request() {
         return api.user.getUsers({ current: 1, pageSize: 100 }).then((res) =>
           res.data.list.map((item: API.User) => ({
             label: item.nickname || item.username,
