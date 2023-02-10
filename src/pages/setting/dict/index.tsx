@@ -23,6 +23,14 @@ export default function Dict() {
     {
       title: '分类',
       dataIndex: 'type',
+      customFieldProps(isAdd) {
+        if (!isAdd) {
+          return {
+            disabled: true,
+          };
+        }
+        return {};
+      },
     },
     {
       title: '标签',
@@ -33,6 +41,14 @@ export default function Dict() {
       title: '值',
       dataIndex: 'value',
       hideInSearch: true,
+      customFieldProps(isAdd) {
+        if (!isAdd) {
+          return {
+            disabled: true,
+          };
+        }
+        return {};
+      },
     },
     {
       title: '值类型',
@@ -42,6 +58,14 @@ export default function Dict() {
         integer: '整数',
       },
       hideInSearch: true,
+      customFieldProps(isAdd) {
+        if (!isAdd) {
+          return {
+            disabled: true,
+          };
+        }
+        return {};
+      },
     },
   ];
   return (
