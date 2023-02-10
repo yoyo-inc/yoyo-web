@@ -49,6 +49,11 @@ export default function Role() {
         valueType: 'checkbox',
         hideInSearch: true,
         hideInTable: true,
+        formItemProps: {
+          style: {
+            width: '420px',
+          },
+        },
         async request() {
           const res = await api.permissions.getPermissions();
           return res.data.children.map((permission: API.Permission) => ({
@@ -75,7 +80,7 @@ export default function Role() {
   };
   return (
     <div>
-      <FormTable<API.Role>
+      <FormTable
         columns={columns}
         moduleName="角色"
         layoutType="StepsForm"
@@ -91,6 +96,7 @@ export default function Role() {
         }}
         onFinish={handleFinish}
         onDelete={handleDelete}
+        showDelete={(entity) => entity.id !== 1}
       />
     </div>
   );
