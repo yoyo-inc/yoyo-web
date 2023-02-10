@@ -18,12 +18,12 @@ export default function Role() {
           ],
         },
       },
-      {
-        title: '描述',
-        search: false,
-        dataIndex: 'description',
-        valueType: 'textarea',
-      },
+      //      {
+      //        title: '描述',
+      //        search: false,
+      //        dataIndex: 'description',
+      //        valueType: 'textarea',
+      //      },
       {
         dataIndex: 'id',
         hideInTable: true,
@@ -97,6 +97,7 @@ export default function Role() {
         onFinish={handleFinish}
         onDelete={handleDelete}
         showDelete={(entity) => entity.id !== 1}
+        showEdit={(entity) => entity.id !== 1}
       />
     </div>
   );

@@ -63,6 +63,7 @@ interface FormTableProps<T> extends CommonFormTableProps<T> {
     },
   ) => ReactNode[];
   showDelete?: (entity: T) => boolean;
+  showEdit?: (entity: T) => boolean;
 }
 
 export function processColumns(columns: FormTableColumnsType, isAdd: boolean, isDesc: boolean) {
@@ -116,6 +117,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
     grid,
     actions = ['edit', 'delete', 'add'],
     showDelete,
+    showEdit,
   } = props;
   const [visible, { set: setVisible }] = useBoolean(false);
   const [detail, setDetail] = useState<T>();
@@ -162,6 +164,9 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
       if (!showDelete) {
         showDelete = () => true;
       }
+      if (!showEdit) {
+        showEdit = () => true;
+      }
       newColumns.push({
         title: '操作',
         valueType: 'option',
@@ -178,7 +183,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
                 查看
               </a>
             ),
-            actions.includes('edit') && (
+            actions.includes('edit') && !!showEdit && showEdit(entity) && (
               <a key="edit" onClick={() => handleEdit(entity)}>
                 编辑
               </a>
