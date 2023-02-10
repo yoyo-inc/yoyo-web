@@ -30,6 +30,15 @@ export default function AuditLog() {
         }
         return `${text.nickname}(${text.username})`;
       },
+      valueType: 'select',
+      request() {
+        return api.user.getUsers({ current: 1, pageSize: 100 }).then((res) =>
+          res.data.list.map((item: API.User) => ({
+            label: item.nickname || item.username,
+            value: item.id,
+          })),
+        );
+      },
     },
     {
       title: '接入IP',
