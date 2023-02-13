@@ -3,7 +3,7 @@ import { Popconfirm } from 'antd';
 import { useSearchParams } from '@umijs/max';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
-import { transformPaginatedData } from '@/utils';
+import { expand, transformPaginatedData } from '@/utils';
 
 export default function AlertList() {
   const [searchParams] = useSearchParams();
@@ -31,6 +31,9 @@ export default function AlertList() {
       title: '类型',
       dataIndex: 'type',
       valueType: 'select',
+      request() {
+        return api.alert.getAlertTypes().then((res) => res.data);
+      },
     },
     {
       title: '级别',
