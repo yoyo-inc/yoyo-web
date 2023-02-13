@@ -16,6 +16,17 @@ const NETWORK_ENUM = {
 export default function AlertPush() {
   const columns: FormTableColumnsType<API.AlertPush> = [
     {
+      title: 'id',
+      dataIndex: 'id',
+      hideInTable: true,
+      hideInSearch: true,
+      formItemProps: {
+        style: {
+          display: 'none',
+        },
+      },
+    },
+    {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTimeRange',
