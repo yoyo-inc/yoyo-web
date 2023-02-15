@@ -55,7 +55,9 @@ export default function SystemSetting() {
               }
             }
             return api.system.putSystemSetting(extraValues).then((res) => {
-              message.success('更新成功');
+              if (res.data) {
+                message.success('更新成功');
+              }
               return res.data;
             });
           }}
