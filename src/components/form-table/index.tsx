@@ -51,7 +51,7 @@ export interface CommonFormTableProps<T> {
 interface FormTableProps<T> extends CommonFormTableProps<T> {
   rowKey?: string;
   request: (params: any) => Promise<any>;
-  onDelete?: (rowKey: string, entity: T) => Promise<boolean | void>;
+  onDelete?: (rowKey: string, entity: T, actions: ActionType) => Promise<boolean | void>;
   tableProps?: ProTableProps<T, any>;
   actions?: Array<'desc' | 'edit' | 'delete' | 'add'>;
   customToolBarRender?: (
@@ -135,7 +135,7 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
 
   const handleDelete = (entity: T) => {
     if (props.onDelete) {
-      props.onDelete(entity[rowKey], entity).then(() => {
+      props.onDelete(entity[rowKey], entity, { ...tableRef.current }).then(() => {
         tableRef.current?.reload();
       });
     }
