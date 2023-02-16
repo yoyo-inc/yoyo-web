@@ -194,6 +194,12 @@ export default function AlertPush() {
             return api.alert.putAlertPush(values).then((res) => res.data);
           }
         }}
+        onDelete={async (rowKey, _, actions) => {
+          return api.alert.deleteAlertPushId({ id: rowKey }).then((res) => {
+            actions.reload();
+            return res.data;
+          });
+        }}
       ></FormTable>
     </div>
   );
