@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Popconfirm } from 'antd';
 import { useSearchParams } from '@umijs/max';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
 import { expand, transformPaginatedData } from '@/utils';
+import { BetaSchemaForm, ProForm, ProFormTextArea } from '@ant-design/pro-components';
 
 export default function AlertList() {
   const [searchParams] = useSearchParams();
+  const [open, setOpen] = useState<boolean>();
+  const [record, setRecord] = useState<API.Alert | undefined>();
+  const tableRef = useRef();
+
+  useEffect(() => {
+    if (!open) {
+      setRecord(undefined);
+    }
+  }, [open]);
 
   const columns: FormTableColumnsType = [
     {
@@ -106,6 +116,13 @@ export default function AlertList() {
             color: 'blue',
           },
         ],
+        [
+          3,
+          {
+            text: '已忽略',
+            status: 'default',
+          },
+        ],
       ]),
     },
     {
@@ -118,12 +135,32 @@ export default function AlertList() {
       dataIndex: 'operator',
       valueType: 'option',
       width: 140,
-      render() {
+      render(_, entity: API.Alert, index, actions) {
         return [
-          <a key="resolved">处置</a>,
-          <Popconfirm key="ignore" title="确认忽略该告警？" onConfirm={() => {}}>
-            <a>忽略</a>
-          </Popconfirm>,
+          entity.resolvedStatus === 0 && (
+            <a
+              key="resolved"
+              onClick={() => {
+                setRecord(entity);
+                setOpen(true);
+              }}
+            >
+              处置
+            </a>
+          ),
+          entity.resolvedStatus === 0 && (
+            <Popconfirm
+              key="ignore"
+              title="确认忽略该告警？"
+              onConfirm={() => {
+                api.alert.putAlertIgnore({ id: entity.id }).then(() => {
+                  actions?.reload();
+                });
+              }}
+            >
+              <a>忽略</a>
+            </Popconfirm>
+          ),
         ];
       },
     },
@@ -136,7 +173,40 @@ export default function AlertList() {
           return api.alert.getAlerts({ ...params }).then(transformPaginatedData);
         }}
         customToolBarRender={() => []}
+        ref={tableRef}
       ></FormTable>
+      <BetaSchemaForm<API.Alert>
+        layout={'horizontal'}
+        layoutType={'ModalForm'}
+        open={open}
+        modalProps={{
+          onCancel: () => {
+            setOpen(false);
+          },
+        }}
+        title={'处置告警'}
+        columns={[
+          {
+            title: '备注',
+            dataIndex: 'remark',
+            valueType: 'textarea',
+          },
+        ]}
+        onFinish={async (values) => {
+          return api.alert
+            .putAlertResolve({
+              //@ts-ignore
+              id: record?.id,
+              remark: values.remark,
+            })
+            .then((res) => {
+              // @ts-ignore
+              tableRef.current?.reload();
+              setOpen(false);
+              return res.data;
+            });
+        }}
+      ></BetaSchemaForm>
     </div>
   );
 }
