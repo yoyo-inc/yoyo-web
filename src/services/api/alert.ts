@@ -96,6 +96,18 @@ export async function getAlertCount(
   });
 }
 
+/** 更新告警 PUT /alert/ignore */
+export async function putAlertIgnore(body: API.IgnoreAlertVO, options?: { [key: string]: any }) {
+  return request<API.Response & { data?: boolean }>('/alert/ignore', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 查询告警推送设置 GET /alert/push */
 export async function getAlertPush(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
@@ -138,24 +150,24 @@ export async function postAlertPush(body: API.AlertPush, options?: { [key: strin
   });
 }
 
-/** 删除告警推送 DELETE /alert/push */
-export async function deleteAlertPush(
+/** 删除告警推送 DELETE /alert/push/${param0} */
+export async function deleteAlertPushId(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteAlertPushParams,
+  params: API.deleteAlertPushIdParams,
   options?: { [key: string]: any },
 ) {
   const { id: param0, ...queryParams } = params;
-  return request<API.Response & { data?: boolean }>('/alert/push', {
+  return request<API.Response & { data?: boolean }>(`/alert/push/${param0}`, {
     method: 'DELETE',
     params: { ...queryParams },
     ...(options || {}),
   });
 }
 
-/** 处置告警 POST /alert/resolve */
-export async function postAlertResolve(body: API.ResolveAlertVO, options?: { [key: string]: any }) {
+/** 处置告警 PUT /alert/resolve */
+export async function putAlertResolve(body: API.ResolveAlertVO, options?: { [key: string]: any }) {
   return request<API.Response & { data?: boolean }>('/alert/resolve', {
-    method: 'POST',
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },

@@ -87,7 +87,7 @@ declare namespace API {
     id: string;
   };
 
-  type deleteAlertPushParams = {
+  type deleteAlertPushIdParams = {
     /** 参数 */
     id: string;
   };
@@ -180,8 +180,10 @@ declare namespace API {
     current?: number;
     /** 每页大小 */
     pageSize?: number;
+    ip?: string;
     module?: string;
     status?: number;
+    userID?: string;
   };
 
   type getDictsParams = {
@@ -196,7 +198,7 @@ declare namespace API {
     current?: number;
     /** 每页大小 */
     pageSize?: number;
-    filename?: string;
+    reportName?: string;
     reportStatus?: string;
     reportType?: string;
   };
@@ -212,6 +214,10 @@ declare namespace API {
   };
 
   type getRolesParams = {
+    /** 页数 */
+    current?: number;
+    /** 每页大小 */
+    pageSize?: number;
     /** 是否默认 */
     default?: boolean;
     /** 角色名 */
@@ -246,6 +252,10 @@ declare namespace API {
     current?: number;
     /** 每页大小 */
     pageSize?: number;
+  };
+
+  type IgnoreAlertVO = {
+    id: string;
   };
 
   type LogConfig = {
