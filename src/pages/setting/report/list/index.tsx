@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { Button } from 'antd';
-import { BetaSchemaForm } from '@ant-design/pro-components';
+import { BetaSchemaForm, ActionType, FormInstance } from '@ant-design/pro-components';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
 import { transformPaginatedData, getToken } from '@/utils';
@@ -9,7 +9,7 @@ import { DEFAULT_FORM_LAYOUT } from '@/components/form-table/detail';
 
 export default function ReportList() {
   const [visible, setVisible] = useState(false);
-  const tableRef = useRef();
+  const tableRef = useRef<ActionType>();
   const columns: FormTableColumnsType<API.Report> = [
     {
       title: '生成时间',
@@ -134,7 +134,7 @@ interface GenerateReportProps {
 
 function GenerateReport(props: GenerateReportProps) {
   const { onReload, ...extraProps } = props;
-  const formRef = useRef();
+  const formRef = useRef<FormInstance>();
   const columns = [
     {
       title: '时间',
