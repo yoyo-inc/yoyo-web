@@ -20,6 +20,9 @@ export default function SystemSecurity() {
   useEffect(() => {
     api.systemSecurity.getSystemSecurity().then((res) => {
       formRef.current?.setFields(expand(res.data));
+      if (res.data && res.data.loginIPWhitelist) {
+        setEditableKeys(res.data.loginIPWhitelist.map((item: any) => item.id));
+      }
     });
   }, []);
   return (
