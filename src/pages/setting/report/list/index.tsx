@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { Button } from 'antd';
 import { BetaSchemaForm } from '@ant-design/pro-components';
@@ -134,6 +134,7 @@ interface GenerateReportProps {
 
 function GenerateReport(props: GenerateReportProps) {
   const { onReload, ...extraProps } = props;
+  const formRef = useRef();
   const columns = [
     {
       title: '时间',
@@ -167,6 +168,11 @@ function GenerateReport(props: GenerateReportProps) {
       dataIndex: 'reportName',
     },
   ];
+  useEffect(() => {
+    if (!props.visible) {
+      formRef.current?.resetFields();
+    }
+  }, [props.visible]);
   return (
     <BetaSchemaForm
       title="生成报告"
@@ -175,6 +181,7 @@ function GenerateReport(props: GenerateReportProps) {
       {...extraProps}
       {...DEFAULT_FORM_LAYOUT}
       layout="horizontal"
+      formRef={formRef}
       onFinish={async (values: any) => {
         const startTime = dayjs(values.time[0]).startOf('day').format('YYYY-MM-DD HH:mm:ss');
         const endTime = dayjs(values.time[1]).endOf('day').format('YYYY-MM-DD HH:mm:ss');
