@@ -96,6 +96,13 @@ export default function SystemSecurity() {
                         {
                           title: 'IP',
                           dataIndex: 'ip',
+                          formItemProps: {
+                            rules: [
+                              {
+                                required: true,
+                              },
+                            ],
+                          },
                         },
                         { title: '操作', valueType: 'option', width: 60 },
                       ]}
