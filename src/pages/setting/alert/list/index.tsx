@@ -153,7 +153,7 @@ export default function AlertList() {
               key="ignore"
               title="确认忽略该告警？"
               onConfirm={() => {
-                api.alert.putAlertIgnore({ id: entity.id as string }).then(() => {
+                api.alert.putAlertIgnore({ id: entity.id as number }).then(() => {
                   actions?.reload();
                 });
               }}
