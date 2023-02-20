@@ -93,7 +93,7 @@ export default function AuditLog() {
     {
       title: '描述',
       dataIndex: 'detail',
-      width: 360,
+      width: 320,
       hideInSearch: true,
       ellipsis: true,
       customFieldProps(isAdd, isDesc) {
