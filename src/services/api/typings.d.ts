@@ -255,7 +255,7 @@ declare namespace API {
   };
 
   type IgnoreAlertVO = {
-    id: string;
+    id: number;
   };
 
   type LogConfig = {
@@ -361,7 +361,7 @@ declare namespace API {
     /** 创建时间 */
     createTime?: string;
     from?: string;
-    id: string;
+    id: number;
     level?: string;
     /** 更新时间 */
     modifyTime?: string;
