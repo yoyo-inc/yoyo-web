@@ -8,7 +8,7 @@ import { ProPageHeader } from '@ant-design/pro-components';
 import Logo from '@/components/logo';
 import RightContent from '@/components/right-content';
 import api from '@/services/api';
-import { getToken } from './utils/token';
+import { getToken } from '@/utils';
 
 const loginPath = '/login';
 
