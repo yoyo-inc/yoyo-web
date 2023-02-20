@@ -14,7 +14,7 @@ export interface DescProps<T> extends CommonFormTableProps<T> {
 export default function Desc<T>(props: DescProps<T>) {
   let { columns, open, setOpen, onCancel, desc = {}, moduleName } = props;
 
-  columns = processColumns(columns, false, true);
+  columns = processColumns(columns, false, true, desc);
 
   return (
     <Modal

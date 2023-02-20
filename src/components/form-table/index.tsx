@@ -28,7 +28,7 @@ import Desc from './desc';
 export type FormTableColumnType<T = any> = ProColumnType<T> &
   ProFormColumnsType<T> &
   ProDescriptionsItemProps<T, 'text'> & {
-    customFieldProps?: (isAdd: boolean, isDesc: boolean) => any;
+    customFieldProps?: (isAdd: boolean, isDesc: boolean, entity: T) => any;
     customProps?: (isAdd: boolean) => FormTableColumnType;
   };
 
@@ -66,11 +66,16 @@ interface FormTableProps<T> extends CommonFormTableProps<T> {
   showEdit?: (entity: T) => boolean;
 }
 
-export function processColumns(columns: FormTableColumnsType, isAdd: boolean, isDesc: boolean) {
+export function processColumns<T>(
+  columns: FormTableColumnsType,
+  isAdd: boolean,
+  isDesc: boolean,
+  detail: T,
+) {
   const convertCustomColumn = (column: FormTableColumnType): FormTableColumnType => {
     let { customFieldProps, fieldProps = {}, customProps, ...extraColumn } = column;
     if (customFieldProps) {
-      fieldProps = customFieldProps(isAdd, isDesc);
+      fieldProps = customFieldProps(isAdd, isDesc, detail);
     }
 
     let newCustomProps = {};

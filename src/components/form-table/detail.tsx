@@ -48,7 +48,10 @@ export default function FormTableDetail<T extends Record<string, any>>(
     onVisibleChange(false);
   };
 
-  columns = useMemo(() => processColumns(columns, isAdd, false), [columns, isAdd]);
+  columns = useMemo(
+    () => processColumns<T>(columns, isAdd, false, detail),
+    [columns, isAdd, detail],
+  );
 
   useEffect(() => {
     if (visible && !isAdd) {
