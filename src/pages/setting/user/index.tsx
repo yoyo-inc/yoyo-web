@@ -101,6 +101,15 @@ export default function User() {
           },
         ],
       },
+      customFieldProps(_, isDesc, entity) {
+        if (entity.id === 1) {
+          return {
+            disabled: true,
+          };
+        } else {
+          return {};
+        }
+      },
     },
     {
       dataIndex: 'email',
