@@ -3,8 +3,8 @@ import { Popconfirm } from 'antd';
 import { useSearchParams } from '@umijs/max';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
-import { expand, transformPaginatedData } from '@/utils';
-import { BetaSchemaForm, ProForm, ProFormTextArea } from '@ant-design/pro-components';
+import { transformPaginatedData } from '@/utils';
+import { BetaSchemaForm } from '@ant-design/pro-components';
 
 export default function AlertList() {
   const [searchParams] = useSearchParams();
@@ -153,7 +153,7 @@ export default function AlertList() {
               key="ignore"
               title="确认忽略该告警？"
               onConfirm={() => {
-                api.alert.putAlertIgnore({ id: entity.id }).then(() => {
+                api.alert.putAlertIgnore({ id: entity.id as string }).then(() => {
                   actions?.reload();
                 });
               }}
