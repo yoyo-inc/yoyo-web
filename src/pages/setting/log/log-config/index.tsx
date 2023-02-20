@@ -9,6 +9,7 @@ import {
 import FormPanel from '@/components/form-panel';
 import api from '@/services/api';
 import { expand } from '@/utils';
+import { message } from 'antd';
 
 export default function LogConfig() {
   const formRef = useRef<ProFormInstance>();
@@ -25,7 +26,10 @@ export default function LogConfig() {
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 18 }}
         onFinish={async (values) => {
-          return api.logConfig.postLogConfig(values).then((res) => res.data);
+          return api.logConfig.postLogConfig(values).then((res) => {
+            message.success('更新成功');
+            return res.data;
+          });
         }}
       >
         <ProFormText label="id" name="id" hidden></ProFormText>
