@@ -302,4 +302,4 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
   );
 }
 
-export default forwardRef<T>(FormTable<T>);
+export default forwardRef<T, FormTableProps<T>>(FormTable<T>);
