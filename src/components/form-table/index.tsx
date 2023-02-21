@@ -75,7 +75,8 @@ export function processColumns<T>(
   const convertCustomColumn = (column: FormTableColumnType): FormTableColumnType => {
     let { customFieldProps, fieldProps = {}, customProps, ...extraColumn } = column;
     if (customFieldProps) {
-      fieldProps = customFieldProps(isAdd, isDesc, detail);
+      let fp = customFieldProps(isAdd, isDesc, detail);
+      fieldProps = Object.assign(fieldProps, fp);
     }
 
     let newCustomProps = {};
@@ -301,4 +302,4 @@ function FormTable<T extends Record<string, any>>(props: FormTableProps<T>, ref)
   );
 }
 
-export default forwardRef(FormTable);
+export default forwardRef<T>(FormTable<T>);
