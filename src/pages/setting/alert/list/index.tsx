@@ -30,7 +30,7 @@ export default function AlertList() {
         },
       },
       render(_: any, entity) {
-        return entity.createTime;
+        return entity.startAt;
       },
     },
     {
