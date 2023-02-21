@@ -2,7 +2,7 @@ import React from 'react';
 import FormTable, { FormTableColumnsType } from '@/components/form-table';
 import api from '@/services/api';
 import { transformPaginatedData } from '@/utils';
-import { Tag } from 'antd';
+import { Alert, Tag } from 'antd';
 
 const FIELDS = [
   ['告警时间字段', 'startAtField'],
@@ -84,6 +84,9 @@ export default function AlertAccess() {
   ];
   return (
     <div>
+      <Alert
+        message={`通过HTTP方式，将告警数据发送到接口 POST ${location.origin}/api/access/alert`}
+      ></Alert>
       <FormTable<API.AlertAccess>
         moduleName="告警接入"
         columns={columns}
