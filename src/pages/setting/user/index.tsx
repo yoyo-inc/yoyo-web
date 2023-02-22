@@ -110,6 +110,7 @@ export default function User() {
           return {};
         }
       },
+      hideInSearch: true,
     },
     {
       dataIndex: 'email',
