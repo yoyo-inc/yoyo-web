@@ -42,7 +42,7 @@ export default function AlertList() {
       dataIndex: 'type',
       valueType: 'select',
       request() {
-        return api.alert.getAlertTypes().then((res) => res.data);
+        return api.alert.getAlertTypes({ type: 1 }).then((res) => res.data);
       },
     },
     {

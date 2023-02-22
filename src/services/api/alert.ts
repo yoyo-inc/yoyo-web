@@ -177,9 +177,16 @@ export async function putAlertResolve(body: API.ResolveAlertVO, options?: { [key
 }
 
 /** 查询告警类型 GET /alert/types */
-export async function getAlertTypes(options?: { [key: string]: any }) {
+export async function getAlertTypes(
+  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
+  params: API.getAlertTypesParams,
+  options?: { [key: string]: any },
+) {
   return request<API.Response & { data?: any[] }>('/alert/types', {
     method: 'GET',
+    params: {
+      ...params,
+    },
     ...(options || {}),
   });
 }

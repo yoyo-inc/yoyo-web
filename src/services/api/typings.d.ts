@@ -175,6 +175,10 @@ declare namespace API {
     starTime?: string;
   };
 
+  type getAlertTypesParams = {
+    type?: number;
+  };
+
   type getAuditLogsParams = {
     /** 页数 */
     current?: number;

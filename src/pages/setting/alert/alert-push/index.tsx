@@ -174,7 +174,7 @@ export default function AlertPush() {
         mode: 'multiple',
       },
       async request() {
-        return api.alert.getAlertTypes().then((res) => res.data);
+        return api.alert.getAlertTypes({}).then((res) => res.data);
       },
       hideInSearch: true,
     },
